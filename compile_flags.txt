@@ -1,0 +1,12 @@
+-std=c89
+-pedantic
+-Wpedantic
+-Wall
+-Wextra
+-Werror
+-Isrc/
+-Isrc/libc/extension/include/
+-Isrc/libc/chadlibc/include/
+-fno-builtin
+-D__DEBUG_SERIAL__=0x3f8
+-D__DEBUG_SERIAL_BAUDS__=9600

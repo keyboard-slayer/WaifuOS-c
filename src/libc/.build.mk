@@ -1,0 +1,1 @@
+LIBC_SRC = $(filter-out src/libc/chadlibc/src/math/sqrt.c src/libc/chadlibc/src/entry.c, $(wildcard src/libc/*/*.c) $(wildcard src/libc/chadlibc/src/*.c) $(wildcard src/libc/chadlibc/src/*/*.c))
