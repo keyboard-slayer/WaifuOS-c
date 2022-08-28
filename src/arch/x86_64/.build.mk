@@ -1,5 +1,5 @@
 CROSS_CC = clang
-CROSS_AS = nasm
+CROSS_AS = as
 CROSS_LD = ld
 
 EMU = qemu-system-x86_64
@@ -50,7 +50,6 @@ KERNEL_CFLAGS = -D__DEBUG_SERIAL__=${CONFIG_COM_PORT_${CONFIG_SERIAL_PORT}}	 	\
 				--target=x86_64-elf-none
 
 KERNEL_LDFLAGS = -z max-page-size=0x1000
-ASFLAGS += -f elf64
 
 KERNEL_SRC += $(wildcard src/arch/x86_64/*.c) $(wildcard src/arch/x86_64/*.s) $(wildcard src/arch/cross-x86/*.c)
 

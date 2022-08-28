@@ -36,7 +36,6 @@ CFLAGS = 							\
 
 
 ASFLAGS = 							\
-	-F dwarf						\
 	-g
 
 LDFLAGS = 							\
