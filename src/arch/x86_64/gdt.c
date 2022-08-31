@@ -1,4 +1,5 @@
 #include "arch/x86_64/tss.h"
+#include "kernel/debug.h"
 #include <arch/cross-x86/gdt.h>
 
 static gdt_t gdt;
@@ -50,4 +51,6 @@ gdt_init(void)
 	gdt.tss_entry = init_tss((uintptr_t) &tss);
 
 	gdt_flush((uintptr_t) &gdt_descriptor);
+
+	success_println(("Loaded"));
 }

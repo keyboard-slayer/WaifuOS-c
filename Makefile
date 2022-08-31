@@ -12,6 +12,7 @@ WARNINGS = 							\
 INCLUDES =							\
 	-Isrc/libc/extension/include/	\
 	-Isrc/libc/chadlibc/include/	\
+	-Isrc/libc/ext/					\
 	-Isrc/
 
 DEFINES =							\
