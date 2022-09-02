@@ -37,6 +37,7 @@ CFLAGS = 							\
 
 
 ASFLAGS = 							\
+	-Os								\
 	-g
 
 LDFLAGS = 							\

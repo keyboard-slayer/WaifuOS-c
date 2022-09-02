@@ -1,5 +1,5 @@
-#ifndef ARCH_CROSS_64_COM_H
-#define ARCH_CROSS_64_COM_H
+#ifndef ARCH_CROSS_X86_COM_H
+#define ARCH_CROSS_X86_COM_H
 
 #include <stdint.h>
 
@@ -27,4 +27,4 @@ enum COM_REGS
 void com_putc(char);
 void com_puts(char const *);
 
-#endif /* !ARCH_CROSS_64_COM_H */
+#endif /* !ARCH_CROSS_X86_COM_H */

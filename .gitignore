@@ -1,3 +1,4 @@
 .config*
 .boot
 .build
+kernel.iso
