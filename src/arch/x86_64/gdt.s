@@ -2,15 +2,14 @@
 
 gdt_flush:
     lgdt (%rdi)
-
+    
     mov $0x10, %ax
     mov %ax, %ss
     mov %ax, %ds
     mov %ax, %es
-    movq $trampoline, %rax
+    pop %rdi
 
-    pushq %rax
-    retq
-
-    trampoline:
-        ret
+    mov $0x08, %rax
+    push %rax
+    push %rdi
+    retfq

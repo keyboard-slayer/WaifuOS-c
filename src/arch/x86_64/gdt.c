@@ -4,12 +4,12 @@
 
 static gdt_t gdt;
 static tss_t tss;
-static gdtr_t gdt_descriptor = { sizeof(gdt_t) - 1, (uintptr_t) &gdt };
+static gdtr_t gdt_descriptor;
 
 static void
 gdt_init_entry(gdt_entry_t *self, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags)
 {
-	self->limit_high_flags = ((limit >> 16) & 0xF) | (flags & 0xF);
+	self->limit_high_flags = ((flags >> 16) & 0x0F) | (limit & 0xF0);
 	self->access = GDT_PRESENT | GDT_RW | GDT_SEGMENT | access;
 
 	self->base_low = base & 0xFFFF;
@@ -26,7 +26,7 @@ init_tss(uintptr_t tss)
 
 	ret.base_low16 = (uint16_t) tss & 0xffff;
 	ret.base_mid8 = (uint8_t) (tss >> 16) & 0xff;
-	ret.base_high8 = (uint8_t) (tss >> 24) & 0xff, ret.base_upper32 = tss >> 32;
+	ret.base_high8 = (uint8_t) (tss >> 24) & 0xff;
 	ret.base_upper32 = tss >> 32;
 
 	ret.length = sizeof(tss_entry_t);
@@ -49,6 +49,9 @@ gdt_init(void)
 	gdt_init_entry(&gdt.entries[GDT_USER_DATA], 0, 0, GDT_RW | GDT_USER_MODE, GDT_LONG_MODE | GDT_GRANULARITY);
 
 	gdt.tss_entry = init_tss((uintptr_t) &tss);
+
+	gdt_descriptor.size = sizeof(gdt_t) - 1;
+	gdt_descriptor.offset = (uintptr_t) &gdt;
 
 	gdt_flush((uintptr_t) &gdt_descriptor);
 
