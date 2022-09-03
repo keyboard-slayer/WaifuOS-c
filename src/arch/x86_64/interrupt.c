@@ -4,7 +4,7 @@
 void
 __interrupt_handler(void)
 {
-	error_println(("Int !!"));
+	debug_println(DEBUG_ERROR, "Int !!");
 	for (;;)
 		;
 }
