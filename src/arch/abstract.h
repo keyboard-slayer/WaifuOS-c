@@ -3,6 +3,12 @@
 
 #include <macro.h>
 
+#ifdef __x86_64__
+# include <arch/x86_64/regs.h>
+#else
+# error "Unknown architecture"
+#endif /* !__x86_64__ */
+
 NORETURN void arch_abort(void);
 void arch_com_putc(char);
 void arch_com_puts(char const *);
