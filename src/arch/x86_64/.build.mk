@@ -51,5 +51,5 @@ KERNEL_CFLAGS = -D__DEBUG_SERIAL__=${CONFIG_COM_PORT_${CONFIG_SERIAL_PORT}}	 	\
 
 KERNEL_LDFLAGS = -z max-page-size=0x1000
 
-KERNEL_SRC += $(wildcard src/arch/x86_64/*.c) $(wildcard src/arch/x86_64/*.s) $(wildcard src/arch/cross-x86/*.c) $(wildcard src/arch/x86_64/*.asm)
+KERNEL_SRC += $(wildcard src/arch/x86_64/*.c) $(wildcard src/arch/x86_64/*.s) $(wildcard src/arch/cross-x86/*.c)
 

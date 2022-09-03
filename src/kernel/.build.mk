@@ -25,10 +25,6 @@ $(KERNEL_BUILD)/%.s.o: %.s
 		@$(MKCWD)
 		$(CROSS_AS) -o $@ $< $(ASFLAGS)
 
-$(KERNEL_BUILD)/%.asm.o: %.asm
-		@$(MKCWD)
-		nasm -o $@ $< -felf64 -Fdwarf
-
 $(KERNEL): $(KERNEL_OBJ)
 		@$(MKCWD)
 		$(CROSS_LD) -o $@ $^ $(KERNEL_LDFLAGS)
