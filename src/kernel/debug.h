@@ -3,10 +3,8 @@
 
 #include <string.h>
 
-#define __FILENAME__	   (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-#define info_println(x)	   __debug_println_impl(__FILENAME__, DEBUG_INFO, x)
-#define success_println(x) __debug_println_impl(__FILENAME__, DEBUG_SUCCESS, x)
-#define error_println(x)   __debug_println_impl(__FILENAME__, DEBUG_ERROR, x)
+#define __FILENAME__		  (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define debug_println(L, ...) __debug_println_impl(__FILENAME__, L, __VA_ARGS__)
 
 typedef enum
 {

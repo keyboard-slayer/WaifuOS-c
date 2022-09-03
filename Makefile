@@ -30,13 +30,14 @@ CFLAGS = 							\
 	$(INCLUDES)						\
 	$(DEFINES)						\
 	$(DISABLED)						\
-	-std=c89						\
+	-std=c99						\
 	-Os								\
 	-ggdb3							\
 	-pedantic
 
 
 ASFLAGS = 							\
+	-Os								\
 	-g
 
 LDFLAGS = 							\
