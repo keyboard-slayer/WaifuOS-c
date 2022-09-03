@@ -59,5 +59,5 @@ gdt_init(void)
 
 	gdt_flush((uintptr_t) &gdt_descriptor);
 
-	debug_println(DEBUG_SUCCESS, "Loaded");
+	debug_println(DEBUG_SUCCESS, "Ok");
 }

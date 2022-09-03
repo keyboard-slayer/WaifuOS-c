@@ -33,5 +33,5 @@ idt_init(void)
 	idt.limit = sizeof(idt_entries) - 1;
 	idt_flush((uint64_t) &idt);
 
-	debug_println(DEBUG_SUCCESS, "Loaded");
+	debug_println(DEBUG_SUCCESS, "Ok");
 }

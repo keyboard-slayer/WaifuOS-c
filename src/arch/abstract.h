@@ -4,6 +4,7 @@
 #include <macro.h>
 
 #ifdef __x86_64__
+# include <arch/cross-x86/const.h>
 # include <arch/x86_64/regs.h>
 #else
 # error "Unknown architecture"

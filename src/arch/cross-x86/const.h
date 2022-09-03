@@ -1,0 +1,6 @@
+#ifndef ARCH_CROSS_x86_CONST_H
+#define ARCH_CROSS_x86_CONST_H
+
+#define PAGE_SIZE 4096
+
+#endif /* !ARCH_CROSS_X86_CONST_H */

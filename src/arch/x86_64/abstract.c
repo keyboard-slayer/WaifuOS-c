@@ -9,6 +9,4 @@ arch_init(void)
 	gdt_init();
 	idt_init();
 	asm_sti();
-
-	__asm__ volatile("int $1");
 }
