@@ -7,4 +7,6 @@ bootstrap(void)
 {
 	arch_init();
 	arch_abort();
+
+	UNREACHABLE;
 }

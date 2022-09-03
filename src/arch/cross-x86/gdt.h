@@ -1,6 +1,7 @@
 #ifndef ARCH_CROSS_x86_GDT_H
 #define ARCH_CROSS_x86_GDT_H
 
+#include <macro.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -25,7 +26,7 @@ typedef struct
 {
 	uint16_t size;
 	uintptr_t offset;
-} __attribute__((packed)) gdtr_t;
+} PACKED gdtr_t;
 
 typedef struct
 {
@@ -36,7 +37,7 @@ typedef struct
 	uint8_t limit_high : 4;
 	uint8_t flags : 4;
 	uint8_t base_high;
-} __attribute__((packed)) gdt_entry_t;
+} PACKED gdt_entry_t;
 
 typedef enum
 {
@@ -60,7 +61,7 @@ typedef struct
 {
 	gdt_entry_t entries[GDT_ENTRIES];
 	tss_entry_t tss_entry;
-} __attribute__((packed)) gdt_t;
+} PACKED gdt_t;
 
 void gdt_init(void);
 extern void gdt_flush(uintptr_t);

@@ -2,8 +2,9 @@
 
 #include "asm.h"
 #include "com.h"
+#include "macro.h"
 
-void
+NORETURN void
 arch_abort(void)
 {
 	for (;;)
@@ -11,6 +12,8 @@ arch_abort(void)
 		asm_cli();
 		asm_hlt();
 	}
+
+	UNREACHABLE;
 }
 
 void
