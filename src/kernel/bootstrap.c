@@ -8,7 +8,9 @@ bootstrap(void)
 {
 	pmm_init();
 	arch_init();
-	arch_abort();
 
+	__asm__ volatile("int $1");
+
+	arch_abort();
 	UNREACHABLE;
 }

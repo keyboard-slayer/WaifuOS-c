@@ -59,8 +59,7 @@ output_exception(regs_t const *regs)
 	debug_println(DEBUG_NONE, "R12 %p R13 %p R14 %p R15 %p", regs->r12, regs->r13, regs->r14, regs->r15);
 	debug_println(DEBUG_NONE, "CR0 %p CR2 %p CR3 %p CR4 %p", cr0, cr2, cr3, cr4);
 	debug_println(DEBUG_NONE, "CS  %p SS  %p FLG %p", regs->cs, regs->ss, regs->rflags);
-	debug_println(DEBUG_NONE, "RIP \033[7m%p\033[0m", regs->rip);
-	debug_retrieve_symbol(regs->rip);
+	debug_println(DEBUG_NONE, "RIP \033[7m%p\033[0m (%s)", regs->rip, debug_retrieve_symbol(regs->rip));
 }
 
 uintptr_t

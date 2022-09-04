@@ -84,4 +84,50 @@ typedef struct
 	Elf64_Xword p_align;
 } Elf64_Phdr;
 
+typedef struct
+{
+	uint32_t sh_name;
+	uint32_t sh_type;
+	uint64_t sh_flags;
+	Elf64_Addr sh_addr;
+	Elf64_Off sh_offset;
+	uint64_t sh_size;
+	uint32_t sh_link;
+	uint32_t sh_info;
+	uint64_t sh_addralign;
+	uint64_t sh_entsize;
+} Elf64_Shdr;
+
+typedef struct
+{
+	Elf64_Word st_name;
+	unsigned char st_info;
+	unsigned char st_other;
+	Elf64_Half st_shndx;
+	Elf64_Addr st_value;
+	Elf64_Xword st_size;
+} Elf64_Sym;
+
+#define ELF64_ST_BIND(info)		  ((info) >> 4)
+#define ELF64_ST_TYPE(info)		  ((info) &0xf)
+#define ELF64_ST_INFO(bind, type) (((bind) << 4) + ((type) &0xf))
+
+typedef enum
+{
+	STT_NOTYPE = 0,
+	STT_OBJECT = 1,
+	STT_FUNC = 2,
+	STT_SECTION = 3,
+	STT_FILE = 4,
+	STT_COMMON = 5,
+	STT_TLS = 6,
+	STT_LOOS = 10,
+	STT_HIOS = 12,
+	STT_LOPROC = 13,
+	STT_SPARC_REGISTER = 13,
+	STT_HIPROC = 15
+} ELF64_ST_TYPE;
+
+Elf64_Shdr *elf64_get_shdr(void *elf, char const *name);
+
 #endif /* !_KERNEL_INC_ELF_H_ */

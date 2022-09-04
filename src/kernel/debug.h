@@ -18,6 +18,6 @@ typedef enum
 } debug_level_t;
 
 void __debug_println_impl(char const *, debug_level_t, char const *, ...);
-void debug_retrieve_symbol(uintptr_t);
+char const *debug_retrieve_symbol(uintptr_t);
 
 #endif /* !KERNEL_DEBUG_H */
