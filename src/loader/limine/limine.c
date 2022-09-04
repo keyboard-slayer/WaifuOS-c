@@ -7,23 +7,13 @@ extern void bootstrap(void);
 
 static memmaps_t memmaps = { 0 };
 
-/* clang-format off */
-volatile struct limine_entry_point_request entry_point = {
-	.id = LIMINE_ENTRY_POINT_REQUEST,
-	.entry = bootstrap
-};
+volatile struct limine_entry_point_request entry_point = { LIMINE_ENTRY_POINT_REQUEST, 0, 0, bootstrap };
 
-volatile struct limine_kernel_file_request kfile_req = {
-	.id = LIMINE_KERNEL_FILE_REQUEST
-};
+volatile struct limine_kernel_file_request kfile_req = { LIMINE_KERNEL_FILE_REQUEST, 0, 0 };
 
-volatile struct limine_hhdm_request hhdm_req = {
-	.id = LIMINE_HHDM_REQUEST
-};
+volatile struct limine_hhdm_request hhdm_req = { LIMINE_HHDM_REQUEST, 0, 0 };
 
-volatile struct limine_memmap_request mmap_req = {
-	.id = LIMINE_MEMMAP_REQUEST
-};
+volatile struct limine_memmap_request mmap_req = { LIMINE_MEMMAP_REQUEST, 0, 0 };
 
 /* clang-format on */
 

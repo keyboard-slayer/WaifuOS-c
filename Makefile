@@ -21,6 +21,7 @@ DEFINES =							\
 
 DISABLED =							\
 	-Wno-sign-compare				\
+	-Wno-variadic-macros			\
 	-fno-builtin					\
 	-fno-stack-protector			\
 	-nostdlib 						\
@@ -30,7 +31,7 @@ CFLAGS = 							\
 	$(INCLUDES)						\
 	$(DEFINES)						\
 	$(DISABLED)						\
-	-std=c99						\
+	-std=c89						\
 	-Os								\
 	-ggdb3							\
 	-pedantic

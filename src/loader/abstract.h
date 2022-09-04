@@ -7,28 +7,16 @@
 
 #define LIMIT_ENTRIES 64
 
-/* clang-format off */
-
-#define FOREACH_MEMMAP_TYPE(FUNC)         \
-    FUNC(MEMMAP_USABLE)                   \
-    FUNC(MEMMAP_RESERVED)                 \
-    FUNC(MEMMAP_RECLAIMABLE)              \
-    FUNC(MEMMAP_BAD_MEMORY)               \
-    FUNC(MEMMAP_BOOTLOADER_RECLAIMABLE)   \
-    FUNC(MEMMAP_KERNEL_AND_MODULES)       \
-    FUNC(MEMMAP_FRAMEBUFFER)
-
 typedef enum
 {
-    FOREACH_MEMMAP_TYPE(GENERATE_ENUM)
+	MEMMAP_USABLE,
+	MEMMAP_RESERVED,
+	MEMMAP_RECLAIMABLE,
+	MEMMAP_BAD_MEMORY,
+	MEMMAP_BOOTLOADER_RECLAIMABLE,
+	MEMMAP_KERNEL_AND_MODULES,
+	MEMMAP_FRAMEBUFFER
 } memmap_type_t;
-
-USED static char const *mmap_type_str[] = 
-{
-    FOREACH_MEMMAP_TYPE(GENERATE_STRING)
-};
-
-/* clang-format on */
 
 typedef struct
 {
