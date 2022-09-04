@@ -20,7 +20,6 @@ DEFINES =							\
 	-DSTB_SPRINTF_IMPLEMENTATION
 
 DISABLED =							\
-	-Wno-sign-compare				\
 	-Wno-variadic-macros			\
 	-fno-builtin					\
 	-fno-stack-protector			\
