@@ -6,7 +6,7 @@ endif
 
 KERNEL_LDFLAGS = -Tsrc/loader/limine/linker.ld
 KERNEL_SRC += $(wildcard src/loader/limine/*.c)
-VER = 3.10.5
+VER = 4.0
 
 $(BOOT)/boot/limine.cfg:
 	cp ./src/loader/limine/limine.cfg $(BOOT)/boot/
