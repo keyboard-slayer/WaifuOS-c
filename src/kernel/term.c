@@ -57,7 +57,7 @@ print_chr(size_t xpos, size_t ypos, uint8_t c, uint32_t color)
 	{
 		for (x = 0; x < FONT_WIDTH; x++)
 		{
-			if ((font[((c - ' ') * FONT_HEIGHT) + y] >> x) & 1)
+			if ((font[(c  * FONT_HEIGHT) + y] >> x) & 1)
 			{
 				draw_pixel_fb(&fb, xpos + x, ypos + y, color);
 			}
@@ -93,6 +93,7 @@ print_str(size_t x, size_t y, char const *s, uint32_t color)
 void
 term_init(void)
 {
+	size_t i;
 	size_t start_x = 40;
 	size_t start_y = 40;
 
@@ -107,20 +108,28 @@ term_init(void)
 	draw_background(fb.width, fb.height);
 
 	/* Window shadow */
-	draw_rect(start_x - 2, start_y - 2, fb.width - 75, fb.height - 75, 0);
+	draw_rect(start_x - 2, start_y - 2, fb.width - 74, fb.height - 74, 0);
 
 	/* Window body */
 	draw_rect(start_x, start_y, fb.width - 80, fb.height - 80, 0xffffff);
 
 	/* Window title bar */
-	draw_rect(start_x, start_y, fb.width - 80, 35, 0xefefef);
-	draw_rect(start_x, start_y, fb.width - 80, 1, 0xb5b3dd);
-	draw_rect(start_x, start_y + 1, fb.width - 80, 1, 0xd3d3ff);
-	draw_rect(start_x, start_y, 1, 35, 0xb5b3dd);
-	draw_rect(start_x + 1, start_y, 1, 35, 0xd3d3ff);
-	draw_rect(fb.width - 40, start_y, 1, 35, 0xb5b3dd);
-	draw_rect(fb.width - 41, start_y, 1, 35, 0xd3d3ff);
-	draw_rect(start_x, start_y + 34, fb.width - 80, 1, 0xb5b3dd);
-	draw_rect(start_x, start_y + 33, fb.width - 80, 1, 0xb5b3dd);
-	draw_rect(start_x, start_y + 35, fb.width - 80, 3, 0);
+	draw_rect(start_x, start_y + 35, fb.width - 80, 2, 0);
+
+	draw_rect(start_x, start_y + 33, fb.width - 80, 2, 0xaeadd5);
+	draw_rect(start_x, start_y, 2, 33, 0xaeadd5);
+	draw_rect(start_x + fb.width - 82, start_y, 2, 33, 0xaeadd5);
+	draw_rect(start_x, start_y, fb.width - 80, 2, 0xaeadd5);
+
+	for (i = 0; i < 7; i++)
+	{
+		draw_rect(start_x + 3, start_y + 8 + (i*3), fb.width-90, 1, 0);
+	}
+
+
+	draw_rect((start_x + (fb.width - 80) - (FONT_WIDTH * 10)) / 2, start_y + 2, FONT_WIDTH * 18, 28, 0xffffff);
+	print_str((start_x + (fb.width - 80) - FONT_WIDTH * 6) / 2, start_y + ((35-FONT_HEIGHT+1)/2), "Debug console", 0);
+	draw_rect(start_x + 8, start_y + 6, 23, 23, 0xffffff);
+	draw_rect(start_x + 10, start_y + 8, 19, 19, 0);
+	draw_rect(start_x + 12, start_y + 10, 15, 15, 0xffffff);
 }
