@@ -39,8 +39,8 @@ bitmap_is_bit_set(size_t index)
 	return bitmap[index / 8] & (1 << (index % 8));
 }
 
-void *
-pmm_alloc_page(size_t pages)
+static void *
+pmm_inner(size_t pages)
 {
 	size_t i;
 	size_t page_start_index;
@@ -60,7 +60,7 @@ pmm_alloc_page(size_t pages)
 				}
 
 				ret = (void *) (page_start_index * PAGE_SIZE);
-				memset(ret, 0, pages);
+				memset((void *) ((uintptr_t) ret + loader_get_hhdm()), 0, pages);
 				return ret;
 			}
 		}
@@ -70,7 +70,27 @@ pmm_alloc_page(size_t pages)
 		}
 	}
 
+	debug_println(DEBUG_ERROR, "Out of memory");
 	return NULL;
+}
+
+void *
+pmm_alloc_page(size_t pages)
+{
+	void *ret = pmm_inner(pages);
+
+	if (ret == NULL)
+	{
+		last_used_index = 0;
+		ret = pmm_inner(pages);
+	}
+
+	if (ret == NULL)
+	{
+		debug_println(DEBUG_ERROR, "Out of memory");
+	}
+
+	return ret;
 }
 
 void *

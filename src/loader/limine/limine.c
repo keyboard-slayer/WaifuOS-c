@@ -8,14 +8,10 @@ extern void bootstrap(void);
 static memmaps_t memmaps = { 0 };
 
 volatile struct limine_entry_point_request entry_point = { LIMINE_ENTRY_POINT_REQUEST, 0, 0, bootstrap };
-
 volatile struct limine_kernel_file_request kfile_req = { LIMINE_KERNEL_FILE_REQUEST, 0, 0 };
-
 volatile struct limine_hhdm_request hhdm_req = { LIMINE_HHDM_REQUEST, 0, 0 };
-
 volatile struct limine_memmap_request mmap_req = { LIMINE_MEMMAP_REQUEST, 0, 0 };
-
-/* clang-format on */
+volatile struct limine_framebuffer_request fb_req = { LIMINE_FRAMEBUFFER_REQUEST, 0, 0 };
 
 uintptr_t
 loader_get_kfile(void)
@@ -66,4 +62,26 @@ loader_get_memmaps(void)
 	}
 
 	return &memmaps;
+}
+
+fb_t
+loader_get_framebuffer(void)
+{
+	struct limine_framebuffer *fb;
+	fb_t framebuffer = { 0, 0, 0, 0, 0 };
+
+	if (fb_req.response == NULL)
+	{
+		return framebuffer;
+	}
+
+	fb = fb_req.response->framebuffers[0];
+
+	framebuffer.width = fb->width;
+	framebuffer.height = fb->height;
+	framebuffer.pitch = fb->pitch;
+	framebuffer.bpp = fb->bpp;
+	framebuffer.addr = (uintptr_t) fb->address;
+
+	return framebuffer;
 }

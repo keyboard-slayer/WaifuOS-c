@@ -31,8 +31,18 @@ typedef struct
 	size_t length;
 } memmaps_t;
 
+typedef struct
+{
+	uintptr_t addr;
+	uint64_t width;
+	uint64_t height;
+	uint64_t pitch;
+	uint64_t bpp;
+} fb_t;
+
 uintptr_t loader_get_kfile(void);
 size_t loader_get_hhdm(void);
 memmaps_t *loader_get_memmaps(void);
+fb_t loader_get_framebuffer(void);
 
 #endif /* !LOADER_ABSTRACT_H */

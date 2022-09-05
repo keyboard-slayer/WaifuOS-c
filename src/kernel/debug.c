@@ -32,7 +32,7 @@ __debug_println_impl(char const *filename, debug_level_t level, char const *fmt,
 }
 
 char const *
-debug_retrieve_symbol(uintptr_t addr)
+debug_retrieve_symbol(uintptr_t addr, size_t *offset)
 {
 	int i;
 	int symbol_num;
@@ -75,6 +75,7 @@ debug_retrieve_symbol(uintptr_t addr)
 		if (symtab[i].st_name && addr > symtab[i].st_value && addr < symtab[i].st_value + symtab[i].st_size &&
 			ELF64_ST_TYPE(symtab[i].st_info) == STT_FUNC)
 		{
+			*offset = addr - symtab[i].st_value;
 			return strtab + symtab[i].st_name;
 		}
 	}

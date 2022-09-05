@@ -11,3 +11,4 @@
 -fno-builtin
 -D__DEBUG_SERIAL__=0x3f8
 -D__DEBUG_SERIAL_BAUDS__=9600
+-Wno-variadic-macros
