@@ -7,9 +7,9 @@
 void
 bootstrap(void)
 {
+	term_init();
 	pmm_init();
 	arch_init();
-	term_init();
 
 	__asm__ volatile("int $1");
 

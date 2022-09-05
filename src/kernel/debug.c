@@ -7,6 +7,7 @@
 #include "elf.h"
 #include "macro.h"
 #include "string.h"
+#include "term.h"
 
 char const *colors[DEBUG_LENGTH] = { "\033[34m", "\033[32m", "\033[31m" };
 
@@ -18,16 +19,22 @@ __debug_println_impl(char const *filename, debug_level_t level, char const *fmt,
 
 	if (level != DEBUG_NONE)
 	{
+		term_puts(colors[level]);
 		arch_com_puts(colors[level]);
 		arch_com_puts(filename);
+		term_puts(filename);
 		arch_com_puts("\033[0m");
+		term_puts("\033[0m");
 		arch_com_putc(' ');
+		term_puts(" ");
 	}
 
 	va_start(ap, fmt);
 	stbsp_vsprintf(buf, fmt, ap);
 	arch_com_puts(buf);
+	term_puts(buf);
 	arch_com_putc('\n');
+	term_puts("\n");
 	va_end(ap);
 }
 

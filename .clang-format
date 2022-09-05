@@ -16,3 +16,4 @@ SortIncludes: true
 IndentPPDirectives: AfterHash
 PPIndentWidth: 1
 SpaceAfterCStyleCast: true
+IndentCaseLabels: true

@@ -1,1 +1,8 @@
-LIBC_SRC = $(filter-out src/libc/chadlibc/src/math/sqrt.c src/libc/chadlibc/src/entry.c, $(wildcard src/libc/*/*.c) $(wildcard src/libc/chadlibc/src/*.c) $(wildcard src/libc/chadlibc/src/*/*.c))
+LIBC_SRC =  								\
+	src/libc/chadlibc/src/string/strchr.c	\
+	src/libc/chadlibc/src/string/strrchr.c	\
+	src/libc/chadlibc/src/string/memset.c	\
+	src/libc/chadlibc/src/string/strlen.c	\
+	src/libc/chadlibc/src/string/strcmp.c	\
+	src/libc/chadlibc/src/ctype.c			\
+	$(wildcard src/libc/ext/*.c)

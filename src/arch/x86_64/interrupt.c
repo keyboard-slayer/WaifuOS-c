@@ -1,3 +1,4 @@
+#include "kernel/term.h"
 #include "macro.h"
 #include <arch/abstract.h>
 #include <kernel/debug.h>
@@ -53,6 +54,7 @@ output_exception(regs_t const *regs)
 	__asm__ volatile("mov %%cr4, %0" : "=r"(cr4));
 
 	arch_com_putc('\n');
+	term_puts("\n");
 	debug_println(DEBUG_ERROR, "Exception %s (0x%x) Err: %d", exception_messages[regs->intno], regs->intno, regs->err);
 	debug_println(DEBUG_NONE, "RAX %p RBX %p RCX %p RDX %p", regs->rax, regs->rbx, regs->rcx, regs->rdx);
 	debug_println(DEBUG_NONE, "RSI %p RDI %p RBP %p RSP %p", regs->rsi, regs->rdi, regs->rbp, regs->rsp);

@@ -9,6 +9,6 @@ arch_init(void)
 {
 	gdt_init();
 	idt_init();
-	/* 	vmm_init(); */
+	vmm_init();
 	asm_sti();
 }
