@@ -7,5 +7,6 @@
 #define UNREACHABLE					__builtin_unreachable()
 #define ALIGN_DOWN(__addr, __align) ((__addr) & ~((__align) -1))
 #define ALIGN_UP(__addr, __align)	(((__addr) + (__align) -1) & ~((__align) -1))
+#define FALLTHROUGH					__attribute__((fallthrough));
 
 #endif /* !LIBC_EXT_MACRO_H */

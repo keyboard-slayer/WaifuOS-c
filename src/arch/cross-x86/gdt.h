@@ -28,6 +28,9 @@ typedef struct
 	uintptr_t offset;
 } PACKED gdtr_t;
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+
 typedef struct
 {
 	uint16_t limit_low;
@@ -38,6 +41,8 @@ typedef struct
 	uint8_t flags : 4;
 	uint8_t base_high;
 } PACKED gdt_entry_t;
+
+#pragma GCC diagnostic pop
 
 typedef enum
 {

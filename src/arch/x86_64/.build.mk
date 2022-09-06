@@ -1,4 +1,4 @@
-CROSS_CC = clang
+CROSS_CC = gcc
 CROSS_AS = as
 CROSS_LD = ld
 
@@ -47,7 +47,6 @@ KERNEL_CFLAGS = -D__DEBUG_SERIAL__=${CONFIG_COM_PORT_${CONFIG_SERIAL_PORT}}	 	\
 		  		-fno-pie														\
 		  		-mno-red-zone													\
 				-D__x86_64__													\
-				--target=x86_64-elf-none
 
 KERNEL_LDFLAGS = -z max-page-size=0x1000
 

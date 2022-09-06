@@ -10,6 +10,8 @@
 #define FOUR_GIG					0x100000000
 #define PMLX_GET_INDEX(addr, level) (((uint64_t) addr & ((uint64_t) 0x1ff << (12 + level * 9))) >> (12 + level * 9))
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
 typedef struct
 {
 	uint8_t present : 1;
@@ -24,6 +26,7 @@ typedef struct
 	uint8_t _available : 3;
 	uint64_t physical : 52;
 } PACKED pml_entry_t;
+#pragma GCC diagnostic pop
 
 typedef struct
 {

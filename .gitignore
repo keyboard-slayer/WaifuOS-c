@@ -2,3 +2,4 @@
 .boot
 .build
 kernel.iso
+.gdb_history

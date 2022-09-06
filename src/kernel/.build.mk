@@ -11,6 +11,8 @@ KERNEL_CFLAGS +=                                        \
 
 KERNEL_LDFLAGS +=                                       \
         $(LDFLAGS)                                      \
+        -no-pie                                         \
+        -m elf_x86_64
 
 KERNEL_SRC +=                                           \
         $(wildcard src/kernel/*.c)              	\
@@ -29,4 +31,4 @@ $(KERNEL_BUILD)/%.s.o: %.s
 
 $(KERNEL): $(KERNEL_OBJ)
 		@$(MKCWD)
-		$(CROSS_LD) -o $@ $^ $(KERNEL_LDFLAGS)
+		$(CROSS_LD) $(KERNEL_LDFLAGS) -o $@ $^

@@ -31,8 +31,8 @@ CFLAGS = 							\
 	$(DEFINES)						\
 	$(DISABLED)						\
 	-std=c89						\
-	-Os								\
-	-ggdb3							\
+	-O0								\
+	-g3								\
 	-pedantic
 
 
@@ -41,6 +41,7 @@ ASFLAGS = 							\
 	-g
 
 LDFLAGS = 							\
+	-g								\
 	-nostdlib						\
 	-static							\
 

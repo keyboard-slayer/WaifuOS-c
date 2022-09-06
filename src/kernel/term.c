@@ -15,7 +15,7 @@ static term_t term = { { 0 },
 					   0,
 					   0,
 					   { 0, 0xF00000, 0x00F000, 0xF0F000, 0x0000F0, 0xF000F0, 0x00F0F0, 0xF0F0F0 },
-					   { 0 } };
+					   { { 0 } } };
 
 static void
 draw_pixel(size_t x, size_t y, uint32_t color)
@@ -186,7 +186,7 @@ term_putc(size_t x, size_t y, char c)
 
 				term.state = ANSI_ENDVAL;
 
-				/* FALLTROUGH */
+				FALLTHROUGH;
 			}
 		}
 
