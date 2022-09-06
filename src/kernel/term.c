@@ -68,7 +68,7 @@ draw_tga(void *ptr, size_t posx, size_t posy)
 
 	for (y = 0; y < header->height; y++)
 	{
-		for (x = 0; x < header->width; x++)
+		for (x = header->width; x > 0; x--)
 		{
 			uint32_t pixel = img[i--];
 
@@ -293,7 +293,7 @@ term_init(void)
 
 	/* Waifu */
 	aqua_mod = loader_get_module("/media/aqua.tga");
-	draw_tga(aqua_mod.ptr, term.framebuffer.width - 300, term.framebuffer.height - 410);
+	draw_tga(aqua_mod.ptr, term.framebuffer.width - 300, term.framebuffer.height - 420);
 
 	is_term_init = 1;
 }
