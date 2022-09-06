@@ -1,5 +1,6 @@
 #include <loader/abstract.h>
 #include <stddef.h>
+#include <string.h>
 
 #include "limine.h"
 
@@ -12,6 +13,7 @@ volatile struct limine_kernel_file_request kfile_req = { LIMINE_KERNEL_FILE_REQU
 volatile struct limine_hhdm_request hhdm_req = { LIMINE_HHDM_REQUEST, 0, 0 };
 volatile struct limine_memmap_request mmap_req = { LIMINE_MEMMAP_REQUEST, 0, 0 };
 volatile struct limine_framebuffer_request fb_req = { LIMINE_FRAMEBUFFER_REQUEST, 0, 0 };
+volatile struct limine_module_request module_req = { LIMINE_MODULE_REQUEST, 0, 0 };
 
 uintptr_t
 loader_get_kfile(void)
@@ -84,4 +86,25 @@ loader_get_framebuffer(void)
 	framebuffer.addr = (uintptr_t) fb->address;
 
 	return framebuffer;
+}
+
+void *
+loader_get_module(char const *name)
+{
+	size_t i;
+
+	if (module_req.response == NULL)
+	{
+		return NULL;
+	}
+
+	for (i = 0; i < module_req.response->module_count; i++)
+	{
+		if (memcmp(module_req.response->modules[i]->path, name, strlen(name)) == 0)
+		{
+			return module_req.response->modules[i]->address;
+		}
+	}
+
+	return NULL;
 }

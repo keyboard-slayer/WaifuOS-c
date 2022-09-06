@@ -17,7 +17,7 @@ INCLUDES =							\
 
 DEFINES =							\
 	-DSTB_SPRINTF_NOFLOAT			\
-	-DSTB_SPRINTF_IMPLEMENTATION
+	-DSTB_SPRINTF_IMPLEMENTATION	
 
 DISABLED =							\
 	-Wno-variadic-macros			\
@@ -81,9 +81,9 @@ clean:
 	rm -rf $(BUILD) $(KERNEL) $(BOOT)
 
 boot_skel:
-	mkdir -p $(BOOT)/boot $(BOOT)/bin $(BOOT)/EFI/BOOT
+	mkdir -p $(BOOT)/boot $(BOOT)/bin $(BOOT)/EFI/BOOT $(BOOT)/media
 	cp $(KERNEL) $(BOOT)/boot
-	cp ./meta/aqua.tga $(BOOT)/
+	cp ./meta/aqua.qoi $(BOOT)/media
 
 boot: $(KERNEL) boot_skel $(LOADER_FILE)
 

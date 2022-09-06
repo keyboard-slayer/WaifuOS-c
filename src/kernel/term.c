@@ -3,6 +3,7 @@
 #include <kernel/debug.h>
 #include <loader/abstract.h>
 #include <macro.h>
+#include <qoi.h>
 #include <string.h>
 
 #include "font.h"
@@ -71,7 +72,7 @@ print_chr(size_t xpos, size_t ypos, uint8_t c, uint32_t color)
 	}
 }
 
-USED static void
+static void
 print_str(size_t x, size_t y, char const *s, uint32_t color)
 {
 	size_t cur_x = x;
@@ -232,6 +233,7 @@ term_puts(char const *s)
 void
 term_init(void)
 {
+	void *aqua_ptr;
 	size_t start_x = 40;
 	size_t start_y = 40;
 	char const *title = "Please give me a name";
@@ -257,4 +259,14 @@ term_init(void)
 	draw_rect(start_x, start_y + 35, term.framebuffer.width - 78, 1, 0);
 	print_str(start_x + ((term.framebuffer.width - 80 - (strlen(title) * FONT_WIDTH)) / 2),
 			  (35 - FONT_HEIGHT) / 2 + start_y, title, 0);
+
+	/* Waifu */
+	aqua_ptr = loader_get_module("/media/aqua.qoi");
+	if (aqua_ptr == NULL)
+	{
+		debug_println(DEBUG_ERROR, "Couldn't find the waifu !");
+		return;
+	}
+
+	(void) aqua_ptr;
 }

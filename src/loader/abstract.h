@@ -44,5 +44,6 @@ uintptr_t loader_get_kfile(void);
 size_t loader_get_hhdm(void);
 memmaps_t *loader_get_memmaps(void);
 fb_t loader_get_framebuffer(void);
+void *loader_get_module(char const *);
 
 #endif /* !LOADER_ABSTRACT_H */
