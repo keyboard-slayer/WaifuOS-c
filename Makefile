@@ -83,7 +83,7 @@ clean:
 boot_skel:
 	mkdir -p $(BOOT)/boot $(BOOT)/bin $(BOOT)/EFI/BOOT $(BOOT)/media
 	cp $(KERNEL) $(BOOT)/boot
-	cp ./meta/aqua.qoi $(BOOT)/media
+	cp ./meta/aqua.tga $(BOOT)/media
 
 boot: $(KERNEL) boot_skel $(LOADER_FILE)
 

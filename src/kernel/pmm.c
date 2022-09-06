@@ -59,8 +59,8 @@ pmm_inner(size_t pages)
 					pmm_set_used(i * PAGE_SIZE, PAGE_SIZE);
 				}
 
-				ret = (void *) (page_start_index * PAGE_SIZE);
-				memset((void *) ((uintptr_t) ret + loader_get_hhdm()), 0, pages);
+				ret = (void *) (page_start_index * PAGE_SIZE + loader_get_hhdm());
+				memset((void *) ((uintptr_t) ret), 0, pages);
 				return ret;
 			}
 		}
@@ -96,7 +96,7 @@ pmm_alloc_page(size_t pages)
 void *
 pmm_alloc(size_t size)
 {
-	return pmm_alloc_page(size * PAGE_SIZE);
+	return pmm_alloc_page(size / PAGE_SIZE);
 }
 
 void

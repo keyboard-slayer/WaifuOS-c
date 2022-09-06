@@ -88,23 +88,25 @@ loader_get_framebuffer(void)
 	return framebuffer;
 }
 
-void *
+module_t
 loader_get_module(char const *name)
 {
 	size_t i;
+	module_t mod = { 0 };
 
 	if (module_req.response == NULL)
 	{
-		return NULL;
+		return mod;
 	}
 
 	for (i = 0; i < module_req.response->module_count; i++)
 	{
 		if (memcmp(module_req.response->modules[i]->path, name, strlen(name)) == 0)
 		{
-			return module_req.response->modules[i]->address;
+			mod.ptr = module_req.response->modules[i]->address;
+			mod.size = module_req.response->modules[i]->size;
 		}
 	}
 
-	return NULL;
+	return mod;
 }

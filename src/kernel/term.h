@@ -33,5 +33,6 @@ typedef struct
 
 void term_init(void);
 void term_puts(char const *);
+void term_draw_waifu(void);
 
 #endif /* !KERNEL_TERM_H */

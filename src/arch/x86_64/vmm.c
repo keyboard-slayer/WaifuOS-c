@@ -48,7 +48,7 @@ vmm_get_pml_alloc(pml_t *pml, size_t index, int user, int alloc)
 			UNREACHABLE;
 		}
 
-		memset((void *) (new_entry + loader_get_hhdm()), 0, PAGE_SIZE);
+		memset((void *) new_entry, 0, PAGE_SIZE);
 		pml->entries[index] = pml_make_entry(new_entry, user);
 
 		return new_entry + loader_get_hhdm();
@@ -106,7 +106,7 @@ vmm_init(void)
 	size_t i;
 	memmaps_t *mmaps = loader_get_memmaps();
 
-	kernel_pml4 = (pml_t *) ((uintptr_t) pmm_alloc_page(1) + loader_get_hhdm());
+	kernel_pml4 = (pml_t *) pmm_alloc_page(1);
 	if (kernel_pml4 == NULL)
 	{
 		debug_println(DEBUG_ERROR, "Failed to allocate kernel PML4");

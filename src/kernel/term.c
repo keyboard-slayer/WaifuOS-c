@@ -1,13 +1,16 @@
 #include <arch/abstract.h>
 #include <ctype.h>
 #include <kernel/debug.h>
+#include <kernel/pmm.h>
 #include <loader/abstract.h>
 #include <macro.h>
-#include <qoi.h>
 #include <string.h>
+#include <tga.h>
 
 #include "font.h"
 #include "term.h"
+
+static int is_term_init = 0;
 
 static term_t term = { { 0 },
 					   40 + FONT_WIDTH,
@@ -50,6 +53,29 @@ draw_background(size_t w, size_t h)
 		for (x = 0; x < w; x++)
 		{
 			draw_rect(x, y, 1, 1, 0x666699);
+		}
+	}
+}
+
+static void
+draw_tga(void *ptr, size_t posx, size_t posy)
+{
+	short x;
+	short y;
+	tga_header_t *header = ptr;
+	uint32_t *img = (uint32_t *) (sizeof(tga_header_t) + (uint64_t) header);
+	size_t i = header->width * header->height;
+
+	for (y = 0; y < header->height; y++)
+	{
+		for (x = 0; x < header->width; x++)
+		{
+			uint32_t pixel = img[i--];
+
+			if (pixel >> 24)
+			{
+				draw_pixel(posx + x, posy + y, pixel);
+			}
 		}
 	}
 }
@@ -215,6 +241,11 @@ term_putc(size_t x, size_t y, char c)
 void
 term_puts(char const *s)
 {
+	if (!is_term_init)
+	{
+		return;
+	}
+
 	while (*s)
 	{
 		if (*s == '\n')
@@ -233,10 +264,10 @@ term_puts(char const *s)
 void
 term_init(void)
 {
-	void *aqua_ptr;
+	module_t aqua_mod;
 	size_t start_x = 40;
 	size_t start_y = 40;
-	char const *title = "Please give me a name";
+	char const *title = "WaifuOS";
 
 	term.framebuffer = loader_get_framebuffer();
 
@@ -261,12 +292,8 @@ term_init(void)
 			  (35 - FONT_HEIGHT) / 2 + start_y, title, 0);
 
 	/* Waifu */
-	aqua_ptr = loader_get_module("/media/aqua.qoi");
-	if (aqua_ptr == NULL)
-	{
-		debug_println(DEBUG_ERROR, "Couldn't find the waifu !");
-		return;
-	}
+	aqua_mod = loader_get_module("/media/aqua.tga");
+	draw_tga(aqua_mod.ptr, term.framebuffer.width - 300, term.framebuffer.height - 410);
 
-	(void) aqua_ptr;
+	is_term_init = 1;
 }
