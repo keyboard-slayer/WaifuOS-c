@@ -31,7 +31,7 @@ typedef struct
 typedef struct
 {
 	pml_entry_t entries[512];
-} __attribute__((packed)) pml_t;
+} PACKED pml_t;
 
 typedef struct
 {

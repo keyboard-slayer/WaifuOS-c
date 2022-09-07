@@ -13,11 +13,10 @@ void
 pmm_free(uint64_t base, uint64_t length)
 {
 	size_t i;
-	size_t target = base / PAGE_SIZE;
 
-	for (i = 0; i < length / PAGE_SIZE; i++)
+	for (i = 0; i < length; i++)
 	{
-		bitmap[(i + target) / 8] &= ~(1 << ((i + target) % 8));
+		bitmap[(i + base) / 8] &= ~(1 << ((i + base) % 8));
 	}
 }
 
@@ -25,11 +24,10 @@ static void
 pmm_set_used(uint64_t base, uint64_t length)
 {
 	size_t i;
-	size_t target = base / PAGE_SIZE;
 
-	for (i = 0; i < length / PAGE_SIZE; i++)
+	for (i = 0; i < length; i++)
 	{
-		bitmap[(i + target) / 8] |= (1 << ((i + target) % 8));
+		bitmap[(i + base) / 8] |= (1 << ((i + base) % 8));
 	}
 }
 
@@ -42,7 +40,6 @@ bitmap_is_bit_set(size_t index)
 static void *
 pmm_inner(size_t pages)
 {
-	size_t i;
 	size_t page_start_index;
 	void *ret;
 	size_t size = 0;
@@ -51,16 +48,12 @@ pmm_inner(size_t pages)
 	{
 		if (!bitmap_is_bit_set(last_used_index++))
 		{
-			page_start_index = last_used_index - pages;
 			if (++size == pages)
 			{
-				for (i = page_start_index; i < last_used_index; i++)
-				{
-					pmm_set_used(i * PAGE_SIZE, PAGE_SIZE);
-				}
+				page_start_index = last_used_index - pages;
+				pmm_set_used(page_start_index, pages);
 
-				ret = (void *) (page_start_index * PAGE_SIZE + loader_get_hhdm());
-				memset((void *) ((uintptr_t) ret), 0, pages);
+				ret = (void *) (page_start_index * PAGE_SIZE);
 				return ret;
 			}
 		}
@@ -132,7 +125,7 @@ pmm_init(void)
 		if (entry->type == MEMMAP_USABLE && entry->length >= bitmap_size)
 		{
 			bitmap = (uint8_t *) (entry->base + hhdm);
-			debug_println(DEBUG_INFO, "PMM bitmap allocaed at %p.", bitmap);
+			debug_println(DEBUG_INFO, "PMM bitmap allocated at %p.", bitmap);
 
 			entry->base += bitmap_size;
 			entry->length -= bitmap_size;
@@ -155,10 +148,10 @@ pmm_init(void)
 
 		if (entry->type == MEMMAP_USABLE)
 		{
-			pmm_free(ALIGN_DOWN(entry->base, PAGE_SIZE), ALIGN_UP(entry->length, PAGE_SIZE));
+			pmm_free(ALIGN_DOWN(entry->base, PAGE_SIZE) / PAGE_SIZE, ALIGN_UP(entry->length, PAGE_SIZE) / PAGE_SIZE);
 		}
 	}
 
-	pmm_set_used(((uintptr_t) bitmap) - hhdm, bitmap_size);
+	pmm_set_used((((uintptr_t) bitmap) - hhdm) / PAGE_SIZE, bitmap_size / PAGE_SIZE);
 	debug_println(DEBUG_SUCCESS, "Ok");
 }

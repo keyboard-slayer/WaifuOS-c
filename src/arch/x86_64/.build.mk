@@ -41,10 +41,15 @@ endif
 KERNEL_CFLAGS = -D__DEBUG_SERIAL__=${CONFIG_COM_PORT_${CONFIG_SERIAL_PORT}}	 	\
 				-D__DEBUG_SERIAL_BAUDS__=$(CONFIG_BAUD_RATE)					\
 		  		-m64										 					\
+				-march=x86-64        											\
+    			-mabi=sysv           											\
 		  		-mno-sse														\
 		  		-mno-sse2														\
 		  		-fno-pic														\
 		  		-fno-pie														\
+				-fno-lto														\
+				-Wvla 															\
+    			-Wshadow 														\
 		  		-mno-red-zone													\
 				-D__x86_64__													\
 

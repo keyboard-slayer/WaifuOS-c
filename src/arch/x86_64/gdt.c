@@ -23,14 +23,14 @@ gdt_init_entry(gdt_entry_t *self, uint32_t base, uint32_t limit, uint8_t access,
 }
 
 static tss_entry_t
-init_tss(uintptr_t tss)
+init_tss(uintptr_t tss_ptr)
 {
 	tss_entry_t ret;
 
-	ret.base_low16 = (uint16_t) tss & 0xffff;
-	ret.base_mid8 = (uint8_t) (tss >> 16) & 0xff;
-	ret.base_high8 = (uint8_t) (tss >> 24) & 0xff;
-	ret.base_upper32 = tss >> 32;
+	ret.base_low16 = (uint16_t) tss_ptr & 0xffff;
+	ret.base_mid8 = (uint8_t) (tss_ptr >> 16) & 0xff;
+	ret.base_high8 = (uint8_t) (tss_ptr >> 24) & 0xff;
+	ret.base_upper32 = tss_ptr >> 32;
 
 	ret.length = sizeof(tss_entry_t);
 	ret.flags1 = 0x89;

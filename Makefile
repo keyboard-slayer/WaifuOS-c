@@ -23,6 +23,7 @@ DISABLED =							\
 	-Wno-variadic-macros			\
 	-fno-builtin					\
 	-fno-stack-protector			\
+	-fno-stack-check				\
 	-nostdlib 						\
 
 CFLAGS = 							\

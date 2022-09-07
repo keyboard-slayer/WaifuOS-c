@@ -2,6 +2,7 @@
 #include <kernel/debug.h>
 #include <kernel/pmm.h>
 #include <loader/abstract.h>
+#include <stdbool.h>
 
 #include "macro.h"
 #include "vmm.h"
@@ -28,30 +29,29 @@ pml_make_entry(uintptr_t physical, int is_user)
 	return ret;
 }
 
-static uint64_t
+static void *
 vmm_get_pml_alloc(pml_t *pml, size_t index, int user, int alloc)
 {
 	pml_entry_t entry = pml->entries[index];
 
 	if (entry.present)
 	{
-		return (entry.physical << 12) + loader_get_hhdm();
+		return (void *) ((entry.physical << 12) + loader_get_hhdm());
 	}
 	else if (alloc)
 	{
-		uint64_t new_entry = ((uint64_t) pmm_alloc_page(1));
+		void *new_entry = pmm_alloc_page(1);
 
-		if (new_entry == 0)
+		if (new_entry == NULL)
 		{
 			debug_println(DEBUG_ERROR, "Failed to allocate new PML entry");
 			arch_abort();
 			UNREACHABLE;
 		}
 
-		memset((void *) new_entry, 0, PAGE_SIZE);
-		pml->entries[index] = pml_make_entry(new_entry, user);
-
-		return new_entry + loader_get_hhdm();
+		memset((void *) ((uintptr_t) new_entry + loader_get_hhdm()), 0, PAGE_SIZE);
+		pml->entries[index] = pml_make_entry((uintptr_t) new_entry, user);
+		return (void *) ((uintptr_t) new_entry + loader_get_hhdm());
 	}
 
 	return 0;
@@ -61,6 +61,7 @@ static void
 vmm_map_page(pml_t *pml, uint64_t virt, uint64_t phys, int user)
 {
 	size_t i;
+	pml_entry_t new_entry = pml_make_entry(phys, user);
 	pml_t *last_entry = pml;
 
 	for (i = 3; i > 0; i--)
@@ -68,14 +69,14 @@ vmm_map_page(pml_t *pml, uint64_t virt, uint64_t phys, int user)
 		last_entry = (pml_t *) vmm_get_pml_alloc(last_entry, PMLX_GET_INDEX(virt, i), 1, 1);
 	}
 
-	last_entry->entries[PMLX_GET_INDEX(virt, 0)] = pml_make_entry(phys, user);
+	last_entry->entries[PMLX_GET_INDEX(virt, 0)] = new_entry;
 }
 
 void
 vmm_map(void *pmlptr, virtual_physical_map_t map, int user)
 {
 	size_t i;
-	pml_t *pml = pmlptr;
+	pml_t *pml = (pml_t *) pmlptr;
 
 	if (map.physical % PAGE_SIZE != 0 || map.virtual % PAGE_SIZE != 0 || map.length % PAGE_SIZE != 0)
 	{
@@ -114,6 +115,8 @@ vmm_init(void)
 		UNREACHABLE;
 	}
 
+	kernel_pml4 = (pml_t *) ((uintptr_t) kernel_pml4 + loader_get_hhdm());
+	memset(kernel_pml4, 0, PAGE_SIZE);
 	debug_println(DEBUG_INFO, "Mapping %p to %p", 0, loader_get_hhdm());
 
 	mapping.length = FOUR_GIG;
@@ -126,7 +129,7 @@ vmm_init(void)
 	{
 		mapping.length = mmaps->entries[i].length;
 		mapping.physical = mmaps->entries[i].base;
-		mapping.virtual = mapping.virtual + loader_get_hhdm();
+		mapping.virtual = mapping.physical + loader_get_hhdm();
 
 		vmm_map(kernel_pml4, mapping, 0);
 	}
