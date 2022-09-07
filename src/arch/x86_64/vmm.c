@@ -14,8 +14,8 @@ pml_make_entry(uintptr_t physical, int is_user)
 {
 	pml_entry_t ret;
 
-	ret.physical = physical > 12;
-	ret.user = is_user;
+	ret.physical = physical >> 12;
+	ret.user = is_user & 1;
 	ret.read_write = 1;
 	ret.present = 1;
 	ret.caching = 0;
@@ -78,19 +78,9 @@ vmm_map(void *pmlptr, virtual_physical_map_t map, int user)
 	size_t i;
 	pml_t *pml = (pml_t *) pmlptr;
 
-	if (map.physical % PAGE_SIZE != 0 || map.virtual % PAGE_SIZE != 0 || map.length % PAGE_SIZE != 0)
-	{
-		debug_println(DEBUG_ERROR, "Can't map a non-page-aligned region");
-		arch_abort();
-		UNREACHABLE;
-	}
-
 	for (i = 0; i < map.length / PAGE_SIZE; i++)
 	{
-		size_t physaddr = i * PAGE_SIZE + map.physical;
-		size_t virtaddr = i * PAGE_SIZE + map.virtual;
-
-		vmm_map_page(pml, virtaddr, physaddr, user);
+		vmm_map_page(pml, i * PAGE_SIZE + map.virtual, i * PAGE_SIZE + map.physical, user);
 	}
 }
 
@@ -117,12 +107,11 @@ vmm_init(void)
 
 	kernel_pml4 = (pml_t *) ((uintptr_t) kernel_pml4 + loader_get_hhdm());
 	memset(kernel_pml4, 0, PAGE_SIZE);
-	debug_println(DEBUG_INFO, "Mapping %p to %p", 0, loader_get_hhdm());
 
-	mapping.length = FOUR_GIG;
+	debug_println(DEBUG_INFO, "Mapping %p to %p", 0, loader_get_hhdm());
+	mapping.length = GIB(4);
 	mapping.physical = 0;
 	mapping.virtual = loader_get_hhdm();
-
 	vmm_map(kernel_pml4, mapping, 0);
 
 	for (i = 0; i < mmaps->length; i++)
@@ -130,7 +119,6 @@ vmm_init(void)
 		mapping.length = mmaps->entries[i].length;
 		mapping.physical = mmaps->entries[i].base;
 		mapping.virtual = mapping.physical + loader_get_hhdm();
-
 		vmm_map(kernel_pml4, mapping, 0);
 	}
 

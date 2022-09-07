@@ -8,9 +8,10 @@ EMUFLAGS = 													\
 	-serial mon:stdio										\
 	-smp $(CONFIG_CPU_CORE)									\
 	-m $(CONFIG_MEMORY)M									\
+	-M q35													\
 
 ifeq ($(CONFIG_ENABLE_KVM), y)
-EMUFLAGS += -enable-kvm
+EMUFLAGS += -enable-kvm -cpu host
 endif
 
 ifeq ($(CONFIG_DUMP_INTERRUPT), y)
