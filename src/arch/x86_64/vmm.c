@@ -124,6 +124,7 @@ vmm_init(void)
 
 	if (cpuid_has_1gb_page())
 	{
+		page_size = GIB(1);
 		debug_println(DEBUG_INFO, "1GB pages are supported");
 	}
 
