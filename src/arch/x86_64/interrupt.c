@@ -47,6 +47,7 @@ output_exception(regs_t const *regs)
 	uint64_t cr3;
 	uint64_t cr4;
 	size_t offset;
+	char const *symbol = debug_retrieve_symbol(regs->rip, &offset);
 
 	__asm__ volatile("mov %%cr0, %0" : "=r"(cr0));
 	__asm__ volatile("mov %%cr2, %0" : "=r"(cr2));
@@ -62,8 +63,7 @@ output_exception(regs_t const *regs)
 	debug_println(DEBUG_NONE, "R12 %p R13 %p R14 %p R15 %p", regs->r12, regs->r13, regs->r14, regs->r15);
 	debug_println(DEBUG_NONE, "CR0 %p CR2 %p CR3 %p CR4 %p", cr0, cr2, cr3, cr4);
 	debug_println(DEBUG_NONE, "CS  %p SS  %p FLG %p", regs->cs, regs->ss, regs->rflags);
-	debug_println(DEBUG_NONE, "RIP \033[7m%p\033[0m <%s+0x%lx>", regs->rip, debug_retrieve_symbol(regs->rip, &offset),
-				  offset);
+	debug_println(DEBUG_NONE, "RIP \033[7m%p\033[0m <%s+0x%lx>", regs->rip, symbol, offset);
 }
 
 static void
@@ -72,6 +72,7 @@ print_traceback(reg_t rbp)
 	uintptr_t *old_bp;
 	uintptr_t *ret_addr;
 	size_t offset;
+	char const *symbol;
 	uintptr_t *base_ptr = (uintptr_t *) rbp;
 
 	if (base_ptr == NULL)
@@ -85,15 +86,14 @@ print_traceback(reg_t rbp)
 	{
 		old_bp = (uintptr_t *) base_ptr[0];
 		ret_addr = (uintptr_t *) base_ptr[1];
+		symbol = debug_retrieve_symbol((uintptr_t) ret_addr, &offset);
 
 		if (ret_addr == NULL || old_bp == NULL)
 		{
 			break;
 		}
 
-		debug_println(DEBUG_NONE, "  [%p] <%s+0x%lx>", (uintptr_t) ret_addr,
-					  debug_retrieve_symbol((uintptr_t) ret_addr, &offset), offset);
-
+		debug_println(DEBUG_NONE, "  [%p] <%s+0x%lx>", (uintptr_t) ret_addr, symbol, offset);
 		base_ptr = old_bp;
 	}
 }

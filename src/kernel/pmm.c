@@ -8,6 +8,7 @@
 static uint8_t *bitmap = NULL;
 static size_t bitmap_size = 0;
 static size_t last_used_index = 0;
+static size_t available_pages = 0;
 
 void
 pmm_free(uint64_t base, uint64_t length)
@@ -17,6 +18,7 @@ pmm_free(uint64_t base, uint64_t length)
 	for (i = 0; i < length; i++)
 	{
 		bitmap[(i + base) / 8] &= ~(1 << ((i + base) % 8));
+		available_pages++;
 	}
 }
 
@@ -28,7 +30,10 @@ pmm_set_used(uint64_t base, uint64_t length)
 	for (i = 0; i < length; i++)
 	{
 		bitmap[(i + base) / 8] |= (1 << ((i + base) % 8));
+		available_pages--;
 	}
+
+	available_pages -= length;
 }
 
 static int
@@ -154,4 +159,10 @@ pmm_init(void)
 
 	pmm_set_used((((uintptr_t) bitmap) - hhdm) / PAGE_SIZE, bitmap_size / PAGE_SIZE);
 	debug_println(DEBUG_SUCCESS, "Ok");
+}
+
+size_t
+pmm_available_pages(void)
+{
+	return available_pages;
 }

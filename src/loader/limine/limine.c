@@ -14,16 +14,20 @@ volatile struct limine_hhdm_request hhdm_req = { LIMINE_HHDM_REQUEST, 0, 0 };
 volatile struct limine_memmap_request mmap_req = { LIMINE_MEMMAP_REQUEST, 0, 0 };
 volatile struct limine_framebuffer_request fb_req = { LIMINE_FRAMEBUFFER_REQUEST, 0, 0 };
 volatile struct limine_module_request module_req = { LIMINE_MODULE_REQUEST, 0, 0 };
+volatile struct limine_kernel_address_request kaddr_req = { LIMINE_KERNEL_ADDRESS_REQUEST, 0, 0 };
 
-uintptr_t
+module_t
 loader_get_kfile(void)
 {
+	module_t kfile = { 0 };
 	if (kfile_req.response == NULL)
 	{
-		return 0;
+		return kfile;
 	}
 
-	return (uintptr_t) kfile_req.response->kernel_file->address;
+	kfile.ptr = kfile_req.response->kernel_file->address;
+	kfile.size = kfile_req.response->kernel_file->size;
+	return kfile;
 }
 
 size_t
@@ -109,4 +113,26 @@ loader_get_module(char const *name)
 	}
 
 	return mod;
+}
+
+virtual_physical_map_t
+loader_get_kaddr(void)
+{
+	virtual_physical_map_t kaddr = { 0 };
+
+	if (kaddr_req.response == NULL)
+	{
+		return kaddr;
+	}
+
+	kaddr.physical = kaddr_req.response->physical_base;
+	kaddr.virtual = kaddr_req.response->virtual_base;
+
+	return kaddr;
+}
+
+size_t
+loader_get_stack_size(void)
+{
+	return KIB(64);
 }

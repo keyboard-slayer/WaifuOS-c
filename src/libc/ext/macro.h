@@ -11,6 +11,7 @@
 #define KIB(x)						((uint64_t) x << 10)
 #define MIB(x)						((uint64_t) x << 20)
 #define GIB(x)						((uint64_t) x << 30)
+#define MAX(x, y)					((x) > (y) ? (x) : (y))
 
 /* clang-format off */
 #define EMBED(NAME, FILE)	        __asm__(".global " #NAME "\n" #NAME ": .incbin \"" FILE "\"\n"); \

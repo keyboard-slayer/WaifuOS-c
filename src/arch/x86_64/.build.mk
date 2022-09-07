@@ -1,4 +1,4 @@
-CROSS_CC = gcc
+CROSS_CC = clang
 CROSS_AS = as
 CROSS_LD = ld
 
@@ -41,6 +41,7 @@ endif
 
 KERNEL_CFLAGS = -D__DEBUG_SERIAL__=${CONFIG_COM_PORT_${CONFIG_SERIAL_PORT}}	 	\
 				-D__DEBUG_SERIAL_BAUDS__=$(CONFIG_BAUD_RATE)					\
+				-ffreestanding													\
 		  		-m64										 					\
 				-march=x86-64        											\
     			-mabi=sysv           											\
@@ -53,6 +54,7 @@ KERNEL_CFLAGS = -D__DEBUG_SERIAL__=${CONFIG_COM_PORT_${CONFIG_SERIAL_PORT}}	 	\
     			-Wshadow 														\
 		  		-mno-red-zone													\
 				-D__x86_64__													\
+				--target=x86_64-elf-none
 
 KERNEL_LDFLAGS = -z max-page-size=0x1000
 

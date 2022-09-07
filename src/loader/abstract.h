@@ -2,6 +2,7 @@
 #define LOADER_ABSTRACT_H
 
 #include <macro.h>
+#include <mem.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -46,10 +47,12 @@ typedef struct
 	size_t size;
 } module_t;
 
-uintptr_t loader_get_kfile(void);
+module_t loader_get_kfile(void);
 size_t loader_get_hhdm(void);
 memmaps_t *loader_get_memmaps(void);
 fb_t loader_get_framebuffer(void);
 module_t loader_get_module(char const *);
+virtual_physical_map_t loader_get_kaddr(void);
+size_t loader_get_stack_size(void);
 
 #endif /* !LOADER_ABSTRACT_H */

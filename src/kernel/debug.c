@@ -47,7 +47,7 @@ debug_retrieve_symbol(uintptr_t addr, size_t *offset)
 	Elf64_Shdr *strtab_sh;
 	Elf64_Sym *symtab;
 	char const *strtab;
-	uint8_t *kernel = (uint8_t *) loader_get_kfile();
+	uint8_t *kernel = (uint8_t *) loader_get_kfile().ptr;
 
 	if (kernel == NULL)
 	{
