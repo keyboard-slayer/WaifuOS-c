@@ -37,5 +37,5 @@ cpuid(uint32_t leaf, uint32_t subleaf)
 int
 cpuid_has_1gb_page(void)
 {
-	return (cpuid(CPUID_FEATURE_IDENTIFIER, 0).edx & CPUID_EXFEATURE_PDPE1GB);
+	return (cpuid(CPUID_EXTENDED_LEAF, 0).edx & CPUID_EXFEATURE_PDPE1GB);
 }

@@ -4,6 +4,7 @@
 #define PACKED						__attribute__((packed))
 #define NORETURN					__attribute__((noreturn))
 #define USED						__attribute__((used))
+#define UNUSED						__attribute__((unused))
 #define UNREACHABLE					__builtin_unreachable()
 #define ALIGN_DOWN(__addr, __align) ((__addr) & ~((__align) -1))
 #define ALIGN_UP(__addr, __align)	(((__addr) + (__align) -1) & ~((__align) -1))
@@ -12,6 +13,7 @@
 #define MIB(x)						((uint64_t) x << 20)
 #define GIB(x)						((uint64_t) x << 30)
 #define MAX(x, y)					((x) > (y) ? (x) : (y))
+#define IRQ(x)						(x + 32)
 
 /* clang-format off */
 #define EMBED(NAME, FILE)	        __asm__(".global " #NAME "\n" #NAME ": .incbin \"" FILE "\"\n"); \

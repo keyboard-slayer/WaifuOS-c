@@ -1,8 +1,10 @@
-#include "kernel/term.h"
-#include "macro.h"
 #include <arch/abstract.h>
 #include <kernel/debug.h>
+#include <kernel/term.h>
 #include <stdint.h>
+
+#include "lapic.h"
+#include "macro.h"
 
 static char *exception_messages[32] = {
 	"Division By Zero",
@@ -98,10 +100,24 @@ print_traceback(reg_t rbp)
 	}
 }
 
+static void
+irq_handler(regs_t *regs)
+{
+	switch (regs->intno)
+	{
+		case IRQ(0):
+		{
+			debug_println(DEBUG_INFO, "IRQ 0!");
+			break;
+		}
+	}
+}
+
 uintptr_t
 __interrupt_handler(reg_t rsp)
 {
 	regs_t *regs = (regs_t *) rsp;
+	arch_com_puts("INT !");
 
 	if (regs->intno < 32)
 	{
@@ -110,6 +126,11 @@ __interrupt_handler(reg_t rsp)
 		arch_abort();
 		UNREACHABLE;
 	}
+	else
+	{
+		irq_handler(regs);
+	}
 
+	lapic_eoi();
 	return rsp;
 }

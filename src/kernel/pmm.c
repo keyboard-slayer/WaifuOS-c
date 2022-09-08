@@ -122,7 +122,6 @@ pmm_init(void)
 
 	last = memmaps->entries[memmaps->length - 1];
 	bitmap_size = ALIGN_UP((last.base + last.length) / (PAGE_SIZE * 8), PAGE_SIZE);
-	debug_println(DEBUG_INFO, "bitmap size: %zu bytes.", bitmap_size);
 
 	for (i = 0; i < memmaps->length; i++)
 	{
@@ -130,7 +129,6 @@ pmm_init(void)
 		if (entry->type == MEMMAP_USABLE && entry->length >= bitmap_size)
 		{
 			bitmap = (uint8_t *) (entry->base + hhdm);
-			debug_println(DEBUG_INFO, "PMM bitmap allocated at %p.", bitmap);
 
 			entry->base += bitmap_size;
 			entry->length -= bitmap_size;
@@ -158,7 +156,7 @@ pmm_init(void)
 	}
 
 	pmm_set_used((((uintptr_t) bitmap) - hhdm) / PAGE_SIZE, bitmap_size / PAGE_SIZE);
-	debug_println(DEBUG_SUCCESS, "Ok");
+	debug_println(DEBUG_INFO, "%d Mib of available memory", (available_pages * PAGE_SIZE) / MIB(1));
 }
 
 size_t

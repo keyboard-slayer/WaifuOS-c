@@ -15,6 +15,7 @@ volatile struct limine_memmap_request mmap_req = { LIMINE_MEMMAP_REQUEST, 0, 0 }
 volatile struct limine_framebuffer_request fb_req = { LIMINE_FRAMEBUFFER_REQUEST, 0, 0 };
 volatile struct limine_module_request module_req = { LIMINE_MODULE_REQUEST, 0, 0 };
 volatile struct limine_kernel_address_request kaddr_req = { LIMINE_KERNEL_ADDRESS_REQUEST, 0, 0 };
+volatile struct limine_rsdp_request rsdp_req = { LIMINE_RSDP_REQUEST, 0, 0 };
 
 module_t
 loader_get_kfile(void)
@@ -135,4 +136,15 @@ size_t
 loader_get_stack_size(void)
 {
 	return KIB(64);
+}
+
+void *
+loader_get_rsdp(void)
+{
+	if (rsdp_req.response == NULL)
+	{
+		return NULL;
+	}
+
+	return rsdp_req.response->address;
 }

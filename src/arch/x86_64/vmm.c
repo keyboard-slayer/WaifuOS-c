@@ -187,5 +187,4 @@ vmm_init(void)
 	}
 
 	vmm_switch_space(kernel_pml4);
-	debug_println(DEBUG_SUCCESS, "Ok");
 }

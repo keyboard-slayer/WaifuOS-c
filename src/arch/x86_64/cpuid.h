@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define CPUID_EXTENDED_LEAF 0x80000001
+
 typedef struct
 {
 	uint8_t succ;
@@ -12,13 +14,6 @@ typedef struct
 	uint32_t ecx;
 	uint32_t edx;
 } cpuid_result_t;
-
-enum cpuid_leaf
-{
-	CPUID_FEATURE_IDENTIFIER = 1,
-	CPUID_EXTENDED_FEATURE_IDENTIFIER = 7,
-	CPUID_PROC_EXTENDED_STATE_ENUMERATION = 13
-};
 
 enum cpuid_extended_feature_bits
 {

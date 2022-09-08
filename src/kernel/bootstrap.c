@@ -1,6 +1,7 @@
 #include <arch/abstract.h>
 
 #include "debug.h"
+#include "macro.h"
 #include "pmm.h"
 #include "term.h"
 
@@ -11,8 +12,7 @@ bootstrap(void)
 	pmm_init();
 	arch_init();
 
-	__asm__ volatile("int $1");
-
-	arch_abort();
+	for (;;)
+		;
 	UNREACHABLE;
 }

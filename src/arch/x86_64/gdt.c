@@ -58,6 +58,4 @@ gdt_init(void)
 	gdt_descriptor.offset = (uintptr_t) &gdt;
 
 	gdt_flush((uintptr_t) &gdt_descriptor);
-
-	debug_println(DEBUG_SUCCESS, "Ok");
 }

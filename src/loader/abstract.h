@@ -54,5 +54,6 @@ fb_t loader_get_framebuffer(void);
 module_t loader_get_module(char const *);
 virtual_physical_map_t loader_get_kaddr(void);
 size_t loader_get_stack_size(void);
+void *loader_get_rsdp(void);
 
 #endif /* !LOADER_ABSTRACT_H */
