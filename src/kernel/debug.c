@@ -19,14 +19,10 @@ __debug_println_impl(char const *filename, debug_level_t level, char const *fmt,
 
 	if (level != DEBUG_NONE)
 	{
-		term_puts(colors[level]);
-		arch_com_puts(colors[level]);
-		arch_com_puts(filename);
-		term_puts(filename);
-		arch_com_puts("\033[0m");
-		term_puts("\033[0m");
-		arch_com_putc(' ');
-		term_puts(" ");
+		stbsp_sprintf(buf, "%s%s\033[0m ", colors[level], filename);
+		term_puts(buf);
+		arch_com_puts(buf);
+		memset(buf, 0, 512);
 	}
 
 	va_start(ap, fmt);

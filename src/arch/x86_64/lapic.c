@@ -1,12 +1,14 @@
 #include <arch/abstract.h>
+#include <arch/cross-x86/madt.h>
 #include <arch/cross-x86/pit.h>
 #include <kernel/debug.h>
 #include <loader/abstract.h>
+#include <macro.h>
 #include <stddef.h>
 
 #include "asm.h"
+#include "ioapic.h"
 #include "lapic.h"
-#include "macro.h"
 
 static uintptr_t lapic_addr;
 
@@ -63,7 +65,9 @@ lapic_current_cpu(void)
 void
 lapic_init(void)
 {
-	lapic_addr = (asm_read_msr(MSR_APICBASE) & 0xfffff000) + loader_get_hhdm();
+	lapic_addr = madt_get_lapic_addr() + loader_get_hhdm();
+	debug_println(DEBUG_INFO, "Found lapic at %p", lapic_addr);
+
 	asm_write_msr(MSR_APICBASE, (asm_read_msr(MSR_APICBASE) | LAPIC_ENABLE) & ~((1 << 10)));
 	lapic_write(LAPIC_SPURIOUS, lapic_read(LAPIC_SPURIOUS) | 0x1ff);
 

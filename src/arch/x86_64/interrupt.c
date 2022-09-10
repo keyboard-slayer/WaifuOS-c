@@ -107,7 +107,6 @@ irq_handler(regs_t *regs)
 	{
 		case IRQ(0):
 		{
-			debug_println(DEBUG_INFO, "IRQ 0!");
 			break;
 		}
 	}
@@ -117,16 +116,15 @@ uintptr_t
 __interrupt_handler(reg_t rsp)
 {
 	regs_t *regs = (regs_t *) rsp;
-	arch_com_puts("INT !");
 
-	if (regs->intno < 32)
+	if (regs->intno < IRQ(0))
 	{
 		output_exception(regs);
 		print_traceback(regs->rbp);
 		arch_abort();
 		UNREACHABLE;
 	}
-	else
+	else if (regs->intno <= IRQ(15))
 	{
 		irq_handler(regs);
 	}

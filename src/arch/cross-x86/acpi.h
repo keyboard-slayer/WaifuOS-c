@@ -1,5 +1,5 @@
-#ifndef ARCH_CROSS_X86_RSDP_H
-#define ARCH_CROSS_X86_RSDP_H
+#ifndef ARCH_CROSS_X86_ACPI_H
+#define ARCH_CROSS_X86_ACPI_H
 
 #include <macro.h>
 #include <stdint.h>
@@ -50,6 +50,6 @@ typedef struct
 void acpi_init(void);
 
 int acpi_checksum(acpi_sdt_t *table);
-acpi_sdt_t *acpi_parse_rsdt(char const *tablename);
+acpi_sdt_t *acpi_parse_sdt(char const *tablename);
 
-#endif /* !ARCH_CROSS_X86_RSDP_H */
+#endif /* !ARCH_CROSS_X86_ACPI_H */

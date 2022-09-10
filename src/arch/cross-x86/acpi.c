@@ -35,13 +35,14 @@ acpi_init(void)
 }
 
 acpi_sdt_t *
-acpi_parse_rsdt(char const *tablename)
+acpi_parse_sdt(char const *tablename)
 {
 	size_t i;
-	acpi_sdt_t *sdt_header = sdt;
 	acpi_sdt_t *tmp;
+	acpi_sdt_t *sdt_header = sdt;
+	size_t entry_count = (sdt_header->length - sizeof(acpi_sdt_t)) / (xsdt ? sizeof(uint64_t) : sizeof(uint32_t));
 
-	for (i = 0; i < sdt_header->length; i++)
+	for (i = 0; i < entry_count; i++)
 	{
 		if (xsdt)
 		{
@@ -54,15 +55,15 @@ acpi_parse_rsdt(char const *tablename)
 
 		if (memcmp(tablename, tmp->signature, 4) == 0)
 		{
-			debug_println(DEBUG_SUCCESS, "Found %s at %p", tablename, sdt);
+			debug_println(DEBUG_INFO, "Found %s at %p", tablename, tmp);
 
-			if (acpi_checksum(sdt))
+			if (acpi_checksum(tmp))
 			{
 				debug_println(DEBUG_ERROR, "Checksum failed");
 				return NULL;
 			}
 
-			return sdt;
+			return tmp;
 		}
 	}
 
