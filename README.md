@@ -15,7 +15,7 @@
 <p align="center">
 <img src="meta/screenshot.png" />
 <br>
-WaifuOS running in QEMU
+WaifuOS running on QEMU
 </p>
 
 # Supported architecture
