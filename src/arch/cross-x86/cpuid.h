@@ -17,41 +17,42 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KERNEL_TERM_H
-#define KERNEL_TERM_H
+#ifndefARCH_CROSS_X86_CPUID_H
+#define ARCH_CROSS_X86_CPUID_H
 
-#include <loader/abstract.h>
-#include <stddef.h>
+#include <stdbool.h>
+#include <stdint.h>
 
-#define ANSI_STACK_SIZE 8
-
-typedef enum
-{
-	ANSI_ESC,
-	ANSI_BRACKET,
-	ANSI_ATTR,
-	ANSI_ENDVAL
-} ansi_state_t;
+#define CPUID_EXTENDED_LEAF		 0x80000001
+#define CPUID_FEATURE_IDENTIFIER 0x1
 
 typedef struct
 {
-	fb_t framebuffer;
-	size_t cur_x;
-	size_t cur_y;
-	ansi_state_t state;
-	size_t stack_index;
-	uint32_t fg_color;
-	uint32_t colors[8];
+	uint8_t succ;
+	uint32_t eax;
+	uint32_t ebx;
+	uint32_t ecx;
+	uint32_t edx;
+} cpuid_result_t;
 
-	struct
-	{
-		int value;
-		int empty;
-	} stack[ANSI_STACK_SIZE];
-} term_t;
+enum cpuid_extended_feature_bits
+{
+	CPUID_EXFEATURE_PDPE1GB = 1 << 26
+};
 
-void term_init(void);
-void term_puts(char const *);
-void term_draw_waifu(void);
+enum cpuid_feature_bits
+{
+	CPUID_SSE_SUPPORT = 1 << 25,
+	CPUID_SSE2_SUPPORT = 1 << 26,
+	CPUID_XSAVE_SUPPORT = 1 << 26
 
-#endif /* !KERNEL_TERM_H */
+};
+
+cpuid_result_t cpuid(uint32_t leaf, uint32_t subleaf);
+
+int cpuid_has_1gb_page(void);
+int cpuid_has_sse(void);
+int cpuid_has_sse2(void);
+int cpuid_has_xsave(void);
+
+#endif /* !ARCH_CROSS_X86_CPUID_H */

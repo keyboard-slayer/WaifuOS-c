@@ -1,8 +1,29 @@
+/**
+ * Copyright (C) 2022 Keyboard Slayer
+ *
+ * This file is part of WaifuOS.
+ *
+ * WaifuOS is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * WaifuOS is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <arch/abstract.h>
 #include <kernel/debug.h>
 #include <kernel/term.h>
 #include <stdint.h>
 
+#include "arch/cross-x86/asm.h"
+#include "arch/x86_64/asm.h"
 #include "lapic.h"
 #include "macro.h"
 
@@ -44,17 +65,18 @@ static char *exception_messages[32] = {
 static void
 output_exception(regs_t const *regs)
 {
-	uint64_t cr0;
-	uint64_t cr2;
-	uint64_t cr3;
-	uint64_t cr4;
 	size_t offset;
+	reg_t cr0;
+	reg_t cr2;
+	reg_t cr3;
+	reg_t cr4;
+
 	char const *symbol = debug_retrieve_symbol(regs->rip, &offset);
 
-	__asm__ volatile("mov %%cr0, %0" : "=r"(cr0));
-	__asm__ volatile("mov %%cr2, %0" : "=r"(cr2));
-	__asm__ volatile("mov %%cr3, %0" : "=r"(cr3));
-	__asm__ volatile("mov %%cr4, %0" : "=r"(cr4));
+	asm_read_cr(0, cr0);
+	asm_read_cr(2, cr2);
+	asm_read_cr(3, cr3);
+	asm_read_cr(4, cr4);
 
 	arch_com_putc('\n');
 	term_puts("\n");
