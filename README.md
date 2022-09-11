@@ -1,7 +1,6 @@
 <div align="center">
   <h1>WaifuOS</h1>
   <br />
-  <br/>
   <img src="https://img.shields.io/tokei/lines/github/keyboard-slayer/waifuos?style=for-the-badge">
   <img src="https://img.shields.io/badge/Language-c89-blue?style=for-the-badge&logo=C">
   <img src="https://img.shields.io/github/license/keyboard-slayer/waifuos?style=for-the-badge">
