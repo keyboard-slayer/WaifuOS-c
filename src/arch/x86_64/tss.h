@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_X86_64_TSS_H
+#ifndef ARCH_X86_64_TSS_H
 #define ARCH_X86_64_TSS_H
 
 #include <stdint.h>

@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_CROSS_X86_SIMD_H
+#ifndef ARCH_CROSS_X86_SIMD_H
 #define ARCH_CROSS_X86_SIMD_H
 
 void simd_init(void);

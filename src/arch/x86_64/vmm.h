@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_X86_64_VMM_H
+#ifndef ARCH_X86_64_VMM_H
 #define ARCH_X86_64_VMM_H
 
 /* PAGING HELL IS REAL */

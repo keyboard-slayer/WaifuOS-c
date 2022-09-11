@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_CROSS_x86_GDT_H
+#ifndef ARCH_CROSS_x86_GDT_H
 #define ARCH_CROSS_x86_GDT_H
 
 #include <macro.h>

@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_X86_64_LAPIC_H
+#ifndef ARCH_X86_64_LAPIC_H
 #define ARCH_X86_64_LAPIC_H
 
 #define LAPIC_CPU_ID	   0x020

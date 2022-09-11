@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_ABSTRACT_H
+#ifndef ARCH_ABSTRACT_H
 #define ARCH_ABSTRACT_H
 
 #include <macro.h>

@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefKERNEL_INC_ELF_H
+#ifndef KERNEL_INC_ELF_H
 #define KERNEL_INC_ELF_H
 
 #include <stdint.h>

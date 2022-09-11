@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndefARCH_CROSS_X86_IDT_H
+#ifndef ARCH_CROSS_X86_IDT_H
 #define ARCH_CROSS_X86_IDT_H
 
 #define IDT_LENGTH 256
