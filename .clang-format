@@ -1,8 +1,9 @@
 AlignTrailingComments: true
+AllowShortIfStatementsOnASingleLine: false
 AlwaysBreakAfterReturnType: AllDefinitions
 AlignConsecutiveMacros: true
 BreakBeforeBraces: Allman
-ColumnLimit: 120
+ColumnLimit: 0
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: false
 FixNamespaceComments: true
