@@ -1,5 +1,6 @@
 .config*
 .boot
 .build
+.build_host
 kernel.iso
 .gdb_history
