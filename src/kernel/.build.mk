@@ -3,6 +3,10 @@ KERNEL_BUILD = $(BUILD)/kernel
 
 KERNEL_CFLAGS +=                                        \
         $(CFLAGS)                                       \
+	-fno-builtin					\
+	-fno-stack-protector				\
+	-fno-stack-check				\
+	-nostdlib 					\
         -fno-zero-initialized-in-bss    		\
         -mno-sse                                        \
         -mno-sse2                                       \
