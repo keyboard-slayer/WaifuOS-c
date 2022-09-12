@@ -25,5 +25,8 @@
 #endif /* __HOST__ */
 
 typedef struct ABSTRACT_WIN abstract_win_t;
+typedef struct UI_WIN ui_win_t;
+
+void abstract_win_init(ui_win_t *);
 
 #endif /* LIBS_LIBC_ABSTRACT_WIN_H */

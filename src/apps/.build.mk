@@ -26,7 +26,8 @@ HOST_CFLAGS = 									\
 		$(CFLAGS) 								\
 		-fsanitize=undefined 					\
 		-fsanitize=address 						\
-		$(sdl2-config --cflags)
+		$(sdl2-config --cflags)					\
+		-D__HOST__
 
 HOST_LDFLAGS = 									\
 		$(sdl2-config --libs) 					\

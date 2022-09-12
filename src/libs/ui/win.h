@@ -20,17 +20,21 @@
 #ifndef LIBS_UI_WIN_H
 #define LIBS_UI_WIN_H
 
-#include "widgets.h"
 #include <abstract/win.h>
 
-typedef struct
+#include "widgets.h"
+
+typedef struct UI_WIN
 {
 	ui_widget_t widget;
+	abstract_win_t abstract;
+	char const *name;
 
-	void (*push)(ui_widget_t);
-	void (*refresh)(void);
+	void (*push)(struct UI_WIN *, ui_widget_t);
+	void (*refresh)(struct UI_WIN *);
 } ui_win_t;
 
 typedef void (*ui_method_t)(ui_win_t *);
+void ui_win_init(ui_win_t *, char const *);
 
 #endif /* LIBS_UI_WIN_H */

@@ -26,7 +26,7 @@ void
 btn_click_func(ui_win_t *win)
 {
 	btn_click_count++;
-	win->refresh();
+	win->refresh(win);
 }
 
 void
@@ -34,10 +34,12 @@ win_main(ui_win_t *win)
 {
 	/* clang-format off */
     win->push(
+        win,
         ui_text("You have clicked the button %d", btn_click_count)
     );
 
     win->push(
+        win,
         ui_btn(btn_click_func, "Click on me")
     );
 	/* clang-format on */
@@ -47,7 +49,7 @@ int
 main(void)
 {
 	/* clang-format off */
-	ui_apprun(
+	ui_app_run(
         win_main,
         "Button clicker"
     );

@@ -21,6 +21,7 @@
 #define LIBS_UI_APP_H
 
 #include "btn.h"
+#include "text.h"
 #include "widgets.h"
 #include "win.h"
 
