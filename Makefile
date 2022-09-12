@@ -21,48 +21,49 @@ MKCWD = mkdir -p $(@D)
 BUILD = .build
 BOOT = .boot
 
-WARNINGS = 							\
-	-Wall							\
-	-Wextra							\
-	-Werror							\
+WARNINGS = 								\
+	-Wall								\
+	-Wextra								\
+	-Werror								\
 	-Wpedantic
 
-INCLUDES =							\
-	-Isrc/libc/extension/include/	\
-	-Isrc/libc/chadlibc/include/	\
-	-Isrc/libc/ext/					\
+INCLUDES =								\
+	-Isrc/libs/libc/extension/include/	\
+	-Isrc/libs/libc/chadlibc/include/	\
+	-Isrc/libs/libc/ext/				\
+	-Isrc/libs/							\
 	-Isrc/
 
-DEFINES =							\
-	-DSTB_SPRINTF_NOFLOAT			\
+DEFINES =								\
+	-DSTB_SPRINTF_NOFLOAT				\
 	-DSTB_SPRINTF_IMPLEMENTATION	
 
-DISABLED =							\
-	-Wno-variadic-macros			\
-	-fno-builtin					\
-	-fno-stack-protector			\
-	-fno-stack-check				\
-	-nostdlib 						\
+DISABLED =								\
+	-Wno-variadic-macros				\
+	-fno-builtin						\
+	-fno-stack-protector				\
+	-fno-stack-check					\
+	-nostdlib 							\
 
-CFLAGS = 							\
-	$(WARNINGS)						\
-	$(INCLUDES)						\
-	$(DEFINES)						\
-	$(DISABLED)						\
-	-std=c89						\
-	-O0								\
-	-g3								\
+CFLAGS = 								\
+	$(WARNINGS)							\
+	$(INCLUDES)							\
+	$(DEFINES)							\
+	$(DISABLED)							\
+	-std=c89							\
+	-O0									\
+	-g3									\
 	-pedantic
 
 
-ASFLAGS = 							\
-	-Os								\
+ASFLAGS = 								\
+	-Os									\
 	-g
 
-LDFLAGS = 							\
-	-g								\
-	-nostdlib						\
-	-static							\
+LDFLAGS = 								\
+	-g									\
+	-nostdlib							\
+	-static								\
 
 CONF = python meta/config.py
 
@@ -84,9 +85,8 @@ all:
 	@echo "Please run 'make defconfig' or 'make menuconfig' first"
 else
 include .config.mk
-include src/arch/.build.mk
-include src/libc/.build.mk
-include src/loader/.build.mk
+include src/libs/libc/.build.mk
+include src/libs/abstract/.build.mk
 include src/kernel/.build.mk
 
 .PHONY: all

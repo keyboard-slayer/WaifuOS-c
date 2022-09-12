@@ -48,4 +48,4 @@ typedef struct
 	uint32_t reserved;
 } __attribute__((packed)) tss_entry_t;
 
-#endif /* !ARCH_X86_64_TSS_H */
+#endif /* ARCH_X86_64_TSS_H */

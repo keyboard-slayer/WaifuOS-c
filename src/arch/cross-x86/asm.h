@@ -20,7 +20,7 @@
 #ifndef ARCH_CROSS_X86_ASM_H
 #define ARCH_CROSS_X86_ASM_H
 
-#include <arch/abstract.h>
+#include <abstract/arch.h>
 #include <stdint.h>
 
 #define asm_hlt() __asm__("hlt")
@@ -90,4 +90,4 @@ enum xcr0_bit
 	XCR0_PKRU_ENABLE = (1 << 9)
 };
 
-#endif /* !ARCH_CROSS_X86_ASM_H */
+#endif /* ARCH_CROSS_X86_ASM_H */

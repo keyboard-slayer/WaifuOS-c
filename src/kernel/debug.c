@@ -17,8 +17,8 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <arch/abstract.h>
-#include <loader/abstract.h>
+#include <abstract/arch.h>
+#include <abstract/loader.h>
 #include <stb_sprintf.h>
 #include <stdarg.h>
 

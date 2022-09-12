@@ -17,11 +17,11 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <arch/abstract.h>
+#include <abstract/arch.h>
+#include <abstract/loader.h>
 #include <arch/cross-x86/madt.h>
 #include <arch/cross-x86/pit.h>
 #include <kernel/debug.h>
-#include <loader/abstract.h>
 #include <macro.h>
 #include <stddef.h>
 

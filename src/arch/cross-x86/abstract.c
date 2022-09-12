@@ -17,7 +17,7 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <arch/abstract.h>
+#include <abstract/arch.h>
 
 #include "asm.h"
 #include "com.h"

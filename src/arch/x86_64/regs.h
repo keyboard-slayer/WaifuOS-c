@@ -53,4 +53,4 @@ typedef struct
 	uint64_t ss;
 } PACKED regs_t;
 
-#endif /* !ARCH_X86_64_REGS_H */
+#endif /* ARCH_X86_64_REGS_H */

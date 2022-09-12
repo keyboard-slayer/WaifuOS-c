@@ -37,4 +37,4 @@
 
 void vmm_init(void);
 
-#endif /* !ARCH_X86_64_VMM_H */
+#endif /* ARCH_X86_64_VMM_H */

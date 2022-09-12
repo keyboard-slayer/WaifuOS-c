@@ -55,4 +55,4 @@ typedef union PACKED
 void ioapic_redirect_irq(uint32_t, uint8_t, uint8_t);
 void ioapic_init(void);
 
-#endif /* !ARCH_X86_64_IOAPIC_H */
+#endif /* ARCH_X86_64_IOAPIC_H */

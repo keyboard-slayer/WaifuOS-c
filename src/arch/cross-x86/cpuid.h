@@ -55,4 +55,4 @@ int cpuid_has_sse(void);
 int cpuid_has_sse2(void);
 int cpuid_has_xsave(void);
 
-#endif /* !ARCH_CROSS_X86_CPUID_H */
+#endif /* ARCH_CROSS_X86_CPUID_H */

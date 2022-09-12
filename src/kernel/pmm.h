@@ -29,4 +29,4 @@ void *pmm_alloc(size_t);
 void *pmm_alloc_page(size_t);
 size_t pmm_available_pages(void);
 
-#endif /* !KERNEL_PMM_H */
+#endif /* KERNEL_PMM_H */

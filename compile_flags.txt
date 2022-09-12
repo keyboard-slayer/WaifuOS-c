@@ -24,10 +24,12 @@
 -Wextra
 -Werror
 -Isrc/
--Isrc/libc/extension/include/
--Isrc/libc/chadlibc/include/
--Isrc/libc/ext/
+-Isrc/libs/libc/extension/include/
+-Isrc/libs/libc/chadlibc/include/
+-Isrc/libs/libc/ext/
+-Isrc/libs
 -fno-builtin
 -D__DEBUG_SERIAL__=0x3f8
 -D__DEBUG_SERIAL_BAUDS__=9600
+-D__HOST__
 -Wno-variadic-macros

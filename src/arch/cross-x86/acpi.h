@@ -71,4 +71,4 @@ void acpi_init(void);
 int acpi_checksum(acpi_sdt_t *table);
 acpi_sdt_t *acpi_parse_sdt(char const *tablename);
 
-#endif /* !ARCH_CROSS_X86_ACPI_H */
+#endif /* ARCH_CROSS_X86_ACPI_H */

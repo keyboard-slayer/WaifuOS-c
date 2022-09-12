@@ -1,0 +1,48 @@
+# Copyright (C) 2022 Keyboard Slayer
+#
+# This file is part of WaifuOS.
+#
+# WaifuOS is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WaifuOS is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
+
+menu "Bootloader"
+    choice
+        prompt "Bootloader to use"
+        default LOADER_LIMINE
+        help 
+            Select the bootloader to use.
+            The default is limine.
+
+        config LOADER_LIMINE
+            bool "Limine"
+            depends on ARCH_X86-64
+            help
+                Use limine as bootloader.
+    endchoice
+
+    config LOADER_EFI
+        bool "EFI"
+        depends on LOADER_LIMINE
+        default y
+endmenu
+
+choice
+    prompt "Architecture"
+    default ARCH_X86-64
+
+config ARCH_X86-64
+    bool "x86 (64-bit) architecture"
+
+endchoice
+
+source "src/arch/x86_64/Kconfig"

@@ -40,4 +40,4 @@ void lapic_eoi(void);
 int lapic_current_cpu(void);
 void lapic_init(void);
 
-#endif /* !ARCH_X86_64_LAPIC_H */
+#endif /* ARCH_X86_64_LAPIC_H */

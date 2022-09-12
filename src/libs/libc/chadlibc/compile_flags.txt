@@ -1,0 +1,11 @@
+-Wall
+-Werror
+-Wextra
+-fpic
+-fno-builtin
+-nostdlib
+-nostdinc
+-Iinclude
+-ansi
+-pedantic
+-Isysdeps/linux/x86_64/include

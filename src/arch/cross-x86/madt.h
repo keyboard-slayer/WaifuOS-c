@@ -76,4 +76,4 @@ uint32_t madt_get_lapic_addr(void);
 madt_iso_t *madt_get_iso_irq(uint8_t irq);
 madt_ioapic_t *madt_get_ioapic_from_gsi(uint32_t gsi);
 
-#endif /* !ARCH_CROSS_X86_MADT_H */
+#endif /* ARCH_CROSS_X86_MADT_H */

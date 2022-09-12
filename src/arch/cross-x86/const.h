@@ -22,4 +22,4 @@
 
 #define PAGE_SIZE 4096
 
-#endif /* !ARCH_CROSS_X86_CONST_H */
+#endif /* ARCH_CROSS_X86_CONST_H */

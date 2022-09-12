@@ -20,7 +20,7 @@
 #ifndef KERNEL_TERM_H
 #define KERNEL_TERM_H
 
-#include <loader/abstract.h>
+#include <abstract/loader.h>
 #include <stddef.h>
 
 #define ANSI_STACK_SIZE 8
@@ -54,4 +54,4 @@ void term_init(void);
 void term_puts(char const *);
 void term_draw_waifu(void);
 
-#endif /* !KERNEL_TERM_H */
+#endif /* KERNEL_TERM_H */

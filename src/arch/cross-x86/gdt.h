@@ -28,7 +28,7 @@
 # include "../x86_64/tss.h"
 #elif __x86_32__
 # error "Not implemented yet"
-#endif /* !__x86_64__ || __x86_32__*/
+#endif /* __x86_64__ || __x86_32__*/
 
 enum gdt_entries
 {
@@ -90,4 +90,4 @@ typedef struct
 void gdt_init(void);
 extern void gdt_flush(uintptr_t);
 
-#endif /* !ARCH_CROSS_X86_GDT_H */
+#endif /* ARCH_CROSS_X86_GDT_H */

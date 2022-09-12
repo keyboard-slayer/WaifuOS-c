@@ -17,9 +17,9 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <arch/abstract.h>
+#include <abstract/arch.h>
+#include <abstract/loader.h>
 #include <kernel/debug.h>
-#include <loader/abstract.h>
 #include <macro.h>
 
 #include "pmm.h"

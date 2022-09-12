@@ -21,7 +21,7 @@
 mainmenu "Kernel Configuration"
 
 source "src/arch/Kconfig"
-source "src/loader/Kconfig"
+source "src/libs/abstract/Kconfig"
 source "src/kernel/Kconfig"
 
 menu "Emulation options"

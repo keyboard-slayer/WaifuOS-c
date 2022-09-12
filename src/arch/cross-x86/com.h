@@ -24,7 +24,7 @@
 
 #ifndef __DEBUG_SERIAL__
 # error "no serial port specified"
-#endif /* !__DEBUG_SERIAL__ */
+#endif /* __DEBUG_SERIAL__ */
 
 #define DEFAULT_RATE (115200)
 
@@ -46,4 +46,4 @@ enum COM_REGS
 void com_putc(char);
 void com_puts(char const *);
 
-#endif /* !ARCH_CROSS_X86_COM_H */
+#endif /* ARCH_CROSS_X86_COM_H */

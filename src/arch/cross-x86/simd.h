@@ -22,4 +22,4 @@
 
 void simd_init(void);
 
-#endif /* !ARCH_CROSS_X86_SIMD_H */
+#endif /* ARCH_CROSS_X86_SIMD_H */

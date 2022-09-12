@@ -39,4 +39,4 @@ typedef enum
 void __debug_println_impl(char const *, debug_level_t, char const *, ...);
 char const *debug_retrieve_symbol(uintptr_t, size_t *);
 
-#endif /* !KERNEL_DEBUG_H */
+#endif /* KERNEL_DEBUG_H */

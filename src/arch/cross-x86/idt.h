@@ -54,4 +54,4 @@ extern uintptr_t __interrupts_vector[];
 extern void idt_flush(uintptr_t);
 void idt_init(void);
 
-#endif /* !ARCH_CROSS_X86_IDT_H */
+#endif /* ARCH_CROSS_X86_IDT_H */
