@@ -17,19 +17,9 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <string.h>
+#ifndef LIBS_UI_FONTS_H
+#define LIBS_UI_FONTS_H
 
-#include "win.h"
+void ui_load_font(char const *);
 
-void
-ui_win_init(ui_win_t *self, char const *win_name)
-{
-	abstract_win_init(self);
-
-	self->widget.rect.w = 700;
-	self->widget.rect.h = 500;
-
-	self->name = malloc(strlen(win_name));
-	strcpy(self->name, win_name);
-}
+#endif /* LIBS_UI_FONTS_H */

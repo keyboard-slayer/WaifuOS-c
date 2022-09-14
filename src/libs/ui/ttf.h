@@ -17,19 +17,36 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <string.h>
+#ifndef LIBS_UI_TTF_H
+#define LIBS_UI_TTF_H
 
-#include "win.h"
+#define TRUETYPE_SCALER_TYPE			0x74727565
+#define OPENTYPE_POSTSCRIPT_SCALER_TYPE 0x4F54544F
+#define POSTSCRIPT1_SCALER_TYPE			0x74797031
 
-void
-ui_win_init(ui_win_t *self, char const *win_name)
+#include <stdint.h>
+
+typedef struct
 {
-	abstract_win_init(self);
+	uint32_t scaler_type;
+	uint16_t num_tables;
+	uint16_t search_range;
+	uint16_t entry_selector;
+	uint16_t range_shift;
+} offset_subtable_t;
 
-	self->widget.rect.w = 700;
-	self->widget.rect.h = 500;
+typedef struct
+{
+	uint32_t tag;
+	uint32_t checksum;
+	uint32_t offset;
+	uint32_t length;
+} table_dir_t;
 
-	self->name = malloc(strlen(win_name));
-	strcpy(self->name, win_name);
-}
+typedef struct
+{
+	offset_subtable_t off_sub;
+	table_dir_t *table_dir;
+} font_directory_t;
+
+#endif /* LIBS_UI_TTF_H */

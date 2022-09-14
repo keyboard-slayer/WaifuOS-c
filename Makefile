@@ -28,7 +28,6 @@ WARNINGS = 								\
 	-Wpedantic
 
 INCLUDES =								\
-	-Isrc/libs/libc/extension/include/	\
 	-Isrc/libs/libc/chadlibc/include/	\
 	-Isrc/libs/libc/ext/				\
 	-Isrc/libs/							\
@@ -100,7 +99,7 @@ clean:
 boot_skel:
 	mkdir -p $(BOOT)/boot $(BOOT)/bin $(BOOT)/EFI/BOOT $(BOOT)/media
 	cp $(KERNEL) $(BOOT)/boot
-	cp ./meta/aqua.tga $(BOOT)/media
+	cp ./media/img/aqua.tga $(BOOT)/media
 
 boot: $(KERNEL) boot_skel $(LOADER_FILE)
 

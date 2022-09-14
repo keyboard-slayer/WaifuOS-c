@@ -17,19 +17,22 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <abstract/posix/io.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "win.h"
+#include "fonts.h"
 
 void
-ui_win_init(ui_win_t *self, char const *win_name)
+ui_load_font(char const *filepath)
 {
-	abstract_win_init(self);
+	char *buf = posix_file_read(filepath);
 
-	self->widget.rect.w = 700;
-	self->widget.rect.h = 500;
+	if (memcmp(buf, "\x00\x01\x00\x00\x00", 5) == 0)
+	{
+		ttf_load(filepath);
+	}
 
-	self->name = malloc(strlen(win_name));
-	strcpy(self->name, win_name);
+	free((void *) buf);
 }

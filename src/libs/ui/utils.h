@@ -17,19 +17,25 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <string.h>
+#ifndef SRC_LIBS_UI_RECT_H
+#define SRC_LIBS_UI_RECT_H
 
-#include "win.h"
+#include <stddef.h>
 
-void
-ui_win_init(ui_win_t *self, char const *win_name)
+typedef struct
 {
-	abstract_win_init(self);
+	size_t x;
+	size_t y;
+	size_t w;
+	size_t h;
+} ui_rect_t;
 
-	self->widget.rect.w = 700;
-	self->widget.rect.h = 500;
+typedef struct
+{
+	int width;
+	int height;
+	int pitch;
+	void *buf;
+} ui_surface_t;
 
-	self->name = malloc(strlen(win_name));
-	strcpy(self->name, win_name);
-}
+#endif /* SRC_LIBS_UI_RECT_H */

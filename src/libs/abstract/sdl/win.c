@@ -17,8 +17,10 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <SDL2/SDL_video.h>
+/* clang-format off */
 #include <ui/win.h>
+#include <SDL2/SDL_video.h>
+/* clang-format on */
 
 void
 abstract_win_init(ui_win_t *self)
@@ -29,8 +31,8 @@ abstract_win_init(ui_win_t *self)
 		self->name,
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		self->widget.width,
-		self->widget.height,
+		self->widget.rect.h,
+		self->widget.rect.w,
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_ALLOW_HIGHDPI);
 
 	if (self->abstract.sdl_window == NULL)

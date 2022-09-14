@@ -19,18 +19,21 @@ include src/apps/*/.build.mk
 
 LIBS_HOST_SRC = 								\
 		$(wildcard src/libs/abstract/sdl/*.c)	\
+		$(wildcard src/libs/abstract/posix/*.c)	\
 		$(wildcard src/libs/ui/*.c)
 
+LIBS_HOST_OBJ = $(patsubst src/%, $(BINDIR_HOST)/%.o, $(LIBS_HOST_SRC))
+
 HOST_CC = gcc
-HOST_CFLAGS = 									\
-		$(CFLAGS) 								\
+HOST_CFLAGS = $(filter-out -Isrc/libs/libc/chadlibc/include/ -Isrc/libs/libc/ext/, $(CFLAGS))
+HOST_CFLAGS += 									\
 		-fsanitize=undefined 					\
 		-fsanitize=address 						\
-		$(sdl2-config --cflags)					\
+		-I/usr/include/SDL2						\
 		-D__HOST__
 
 HOST_LDFLAGS = 									\
-		$(sdl2-config --libs) 					\
+		-lSDL2									\
 		-fsanitize=undefined 					\
 		-fsanitize=address
 
@@ -38,15 +41,14 @@ $(BINDIR_HOST)/%.c.o: src/%.c
 	@$(MKCWD)
 	$(HOST_CC) -c -o $@ $< $(HOST_CFLAGS)
 
-
 define HOST_TEMPLATE
 
 $(1)_NAME = $$(shell echo $(1) | tr A-Z a-z)
 
 $(1)_HOST_SRC = \
-	$$(wildcard src/apps$$(PKG_$(1)_PATH)/*.c) \
-	$$(wildcard src/apps$$(PKG_$(1)_PATH)/*/*.c) \
-	$$(wildcard src/apps$$(PKG_$(1)_PATH)/*/*/*.c)
+	$$(wildcard src/$$(PKG_$(1)_PATH)/*.c) \
+	$$(wildcard src/$$(PKG_$(1)_PATH)/*/*.c) \
+	$$(wildcard src/$$(PKG_$(1)_PATH)/*/*/*.c)
 
 $(1)_HOST_OBJ = $$(patsubst src/%,$(BINDIR_HOST)/%.o, $$($(1)_HOST_SRC))
 $(1)_HOST_BIN  = $(BINDIR_HOST)/$$($(1)_NAME)
@@ -55,13 +57,14 @@ HOST_NAMES+=$$($(1)_NAME)
 DEPENDENCIES += $$($(1)_HOST_OBJ:.o=.d)
 
 $$($(1)_NAME): $$($(1)_HOST_BIN)
-	@$$(1)_HOST_BIN
+	@$$($(1)_HOST_BIN)
 
-$$($(1)_HOST_BIN): $$($(1)_HOST_OBJ) $(LIBS_HOST_BIN)
+$$($(1)_HOST_BIN): $$($(1)_HOST_OBJ) $(LIBS_HOST_OBJ)
 	@$$(MKCWD)
 	$(HOST_CC) -o $$@ $$^ $(HOST_LDFLAGS) $(HOST_CFLAGS)
 
 host-$$($(1)_NAME)-dump:
+	@echo "$(1)"
 	@echo "$$($(1)_HOST_BIN)"
 	@echo "$$($(1)_HOST_OBJ)"
 	@echo "$$($(1)_HOST_SRC)"

@@ -17,19 +17,37 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <errno.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "win.h"
-
-void
-ui_win_init(ui_win_t *self, char const *win_name)
+void *
+posix_file_read(char const *filepath)
 {
-	abstract_win_init(self);
+	void *buf;
+	size_t fsize;
+	FILE *fp = fopen(filepath, "r");
 
-	self->widget.rect.w = 700;
-	self->widget.rect.h = 500;
+	if (fp == NULL)
+	{
+		return NULL;
+	}
 
-	self->name = malloc(strlen(win_name));
-	strcpy(self->name, win_name);
+	fseek(fp, 0, SEEK_END);
+	fsize = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+
+	buf = malloc(fsize);
+
+	if (buf == NULL)
+	{
+		fclose(fp);
+		return NULL;
+	}
+
+	fread(buf, fsize, 1, fp);
+	fclose(fp);
+
+	return buf;
 }

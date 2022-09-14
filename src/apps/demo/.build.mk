@@ -1,2 +1,2 @@
-APP_DEMO_PATH = apps/demo 
+PKG_demo_PATH = apps/demo 
 APPS += demo

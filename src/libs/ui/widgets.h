@@ -20,12 +20,16 @@
 #ifndef UI_APP_WIDGET_H
 #define UI_APP_WIDGET_H
 
-#include <stddef.h>
+#define UI_FONT_SIZE 12
+
+#include <ui/utils.h>
 
 typedef struct
 {
-	size_t width;
-	size_t height;
+	ui_surface_t surface;
+	ui_rect_t rect;
 } ui_widget_t;
+
+void ui_widget_init(ui_widget_t *);
 
 #endif /* UI_APP_WIDGET_H */

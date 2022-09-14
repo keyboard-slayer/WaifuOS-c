@@ -17,19 +17,21 @@
  * along with WaifuOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
 
-#include "win.h"
+#include "text.h"
 
-void
-ui_win_init(ui_win_t *self, char const *win_name)
+ui_widget_t
+ui_text(char const *fmt, ...)
 {
-	abstract_win_init(self);
+	ui_widget_t self;
+	char buf[1024];
+	va_list ap;
+	va_start(ap, fmt);
+	vsprintf(buf, fmt, ap);
 
-	self->widget.rect.w = 700;
-	self->widget.rect.h = 500;
+	ui_widget_init(&self);
 
-	self->name = malloc(strlen(win_name));
-	strcpy(self->name, win_name);
+	return self;
 }

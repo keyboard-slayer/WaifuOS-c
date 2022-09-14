@@ -20,9 +20,6 @@
 #ifndef LIBS_ABSTRACT_SDL_WIN_H
 #define LIBS_ABSTRACT_SDL_WIN_H
 
-typedef void *__gnuc_va_list;
-typedef unsigned short wchar_t;
-
 #include <SDL2/SDL.h>
 
 struct ABSTRACT_WIN

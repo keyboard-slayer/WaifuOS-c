@@ -24,15 +24,15 @@
 
 #include "widgets.h"
 
-typedef struct UI_WIN
+struct UI_WIN
 {
 	ui_widget_t widget;
 	abstract_win_t abstract;
-	char const *name;
+	char *name;
 
 	void (*push)(struct UI_WIN *, ui_widget_t);
 	void (*refresh)(struct UI_WIN *);
-} ui_win_t;
+};
 
 typedef void (*ui_method_t)(ui_win_t *);
 void ui_win_init(ui_win_t *, char const *);
