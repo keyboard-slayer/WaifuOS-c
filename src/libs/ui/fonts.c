@@ -23,15 +23,16 @@
 #include <string.h>
 
 #include "fonts.h"
+#include "ttf.h"
 
 void
 ui_load_font(char const *filepath)
 {
-	char *buf = posix_file_read(filepath);
+	uint8_t *buf = posix_file_read(filepath);
 
-	if (memcmp(buf, "\x00\x01\x00\x00\x00", 5) == 0)
+	if (memcmp(buf, "\x00\x01\x00\x00\x00", 5) == 0 || memcmp(buf, "\x4f\x54\x54\x4f", 5) == 0)
 	{
-		ttf_load(filepath);
+		ttf_load(buf);
 	}
 
 	free((void *) buf);

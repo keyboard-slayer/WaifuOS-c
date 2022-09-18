@@ -49,4 +49,6 @@ typedef struct
 	table_dir_t *table_dir;
 } font_directory_t;
 
+void ttf_load(uint8_t *);
+
 #endif /* LIBS_UI_TTF_H */
